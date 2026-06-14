@@ -90,7 +90,7 @@ footer{width:100%;max-width:700px;padding:16px;text-align:center;font-size:10px;
   <div class="action-row">
     <button class="act-btn" id="shareBtn" style="border-color:#1da1f222;color:#4499cc">X share</button>
     <button class="act-btn dl" id="dlBtn" style="border-color:#ff880022;color:#cc7700">Save(Picture)</button>
-    <button class="act-btn dl" id="gifBtn" style="border-color:#44aaff22;color:#4488cc">Save(Movie)</button>
+    <button class="act-btn dl" id="gifBtn" style="border-color:#44aaff22;color:#4488cc">Save(GIF)</button>
     <button class="act-btn anim" id="animBtn" style="border-color:#44ff4422;color:#338833">play</button>
   </div>
   <div class="input-panel">
@@ -463,16 +463,16 @@ function makeGif(btn){
         var url=URL.createObjectURL(blob);
         var a=document.createElement('a');a.href=url;a.download='pachimoji.gif';a.click();
         URL.revokeObjectURL(workerUrl);
-        btn.textContent='Save(Movie)';btn.style.opacity='1';
+        btn.textContent='Save(GIF)';btn.style.opacity='1';
         render(0);
       });
       gif.render();
     };
-    script.onerror=function(){btn.textContent='Save(Movie)';btn.style.opacity='1';alert('GIF生成に失敗しました');};
+    script.onerror=function(){btn.textContent='Save(GIF)';btn.style.opacity='1';alert('GIF生成に失敗しました');};
     document.head.appendChild(script);
-  }).catch(function(){btn.textContent='Save(Movie)';btn.style.opacity='1';alert('GIF生成に失敗しました');});
+  }).catch(function(){btn.textContent='Save(GIF)';btn.style.opacity='1';alert('GIF生成に失敗しました');});
 }
-document.getElementById('gifBtn').onclick=function(){makeGif(this);};
+document.getElementById('gifBtn').onclick=function(){var self=this;showAdModal(function(){makeGif(self);});};
 document.getElementById('shareBtn').onclick=function(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('https://mutaccoworks.github.io/pachimoji.html\n#むたっこ製作所 #パチ文字メーカー'),'_blank');};
 function startAnim(){animOn=true;document.getElementById('animBtn').textContent='stop';document.getElementById('animBtn').classList.add('on');step();}
 function stopAnim(){animOn=false;cancelAnimationFrame(rafId);document.getElementById('animBtn').textContent='play';document.getElementById('animBtn').classList.remove('on');}
