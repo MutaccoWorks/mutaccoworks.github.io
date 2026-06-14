@@ -367,7 +367,7 @@ function drawTwoLines(t1,t2,cy1,cy2,fs1,fs2,col,pulse,shk){
   ctx.save();[[t1,fs1,cy1,W/2+shk,-0.035,-0.04],[t2||null,fs2,cy2,W/2-shk*0.5,-0.035,-0.04]].forEach(function(d){if(!d[0])return;ctx.save();AT(ctx,d[3],d[2],d[1]*pulse,d[4],d[5]);ctx.shadowColor=col.glow;ctx.shadowBlur=d[1]*pulse*0.28;ctx.strokeStyle=col.glow+'20';ctx.lineWidth=d[1]*pulse*0.1;ctx.strokeText(d[0],0,0);ctx.restore();});ctx.restore();rs();
   ctx.drawImage(oc,0,0);
   // シャイン（アニメ中は動く、静止画は上から40%固定）
-  var shineP=animOn?(performance.now()/1000*0.45)%1.0:0.4;
+  var shineP=animOn||gifRecording?(t*0.008)%1.0:0.4;
   [[t1,cy1,fs1*pulse],[t2&&t2.trim().length>0?t2:null,cy2,fs2*pulse]].forEach(function(d){
     if(!d[0])return;
     var lineH=d[2]*1.2,top=d[1]-lineH*0.5,bot=d[1]+lineH*0.5,sw=lineH*0.6;
