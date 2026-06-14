@@ -136,11 +136,13 @@ var BGS=[
 ];
 
 var curC='gold',curB='gold_bills',animOn=false,animT=0,rafId=null,fontOK=false;
-document.fonts.ready.then(function(){
-  document.fonts.load('900 40px "Zen Black"').then(function(){
-    fontOK=true;
-    if(!animOn)render(0);
-  });
+document.fonts.load('900 40px "Zen Black"').then(function(){
+  fontOK=true;
+}).catch(function(){}).finally(function(){
+  buildGrids();
+  document.getElementById('t1').value='5000兆円';
+  document.getElementById('t2').value='欲しい！';
+  render(0);
 });
 
 function miniPrev(mc,id){
@@ -471,10 +473,6 @@ document.getElementById('shareBtn').onclick=function(){window.open('https://twit
 function startAnim(){animOn=true;document.getElementById('animBtn').textContent='stop';document.getElementById('animBtn').classList.add('on');step();}
 function stopAnim(){animOn=false;cancelAnimationFrame(rafId);document.getElementById('animBtn').textContent='play';document.getElementById('animBtn').classList.remove('on');}
 function step(){animT++;render(animT);if(animOn)rafId=requestAnimationFrame(step);}
-buildGrids();
-document.getElementById('t1').value='5000兆円';
-document.getElementById('t2').value='欲しい！';
-render(0);
 })();
 </script>
 </body>
