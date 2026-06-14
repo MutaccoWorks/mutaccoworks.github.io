@@ -371,12 +371,11 @@ function render(t){
   var pulse=animOn?1+Math.sin(t*0.13)*0.045:1,shk=animOn?Math.sin(t*0.2)*2.5:0;
   // 横幅制限（係数を0.74→0.62に厳しく、最大幅も88%→78%に）
   var maxPulse=1.05;
-  var fontScale=fontOK?1.22:1.0; // Zen Blackはシステムフォントより約22%幅広い
-  var maxFontW=Math.floor(W*0.62/Math.max(t1.length,1)/0.62/maxPulse/fontScale);
+  var maxFontW=Math.floor(W*0.55/Math.max(t1.length,1)/0.62/maxPulse);
   // 縦幅制限
   var maxFontH=has2?Math.floor(H*0.36/maxPulse):Math.floor(H*0.62/maxPulse);
-  var fs1=Math.min(120,maxFontW,maxFontH);
-  var maxFontW2=has2?Math.floor(W*0.62/Math.max(t2.length,1)/0.62/maxPulse/fontScale):fs1;
+  var fs1=Math.min(110,maxFontW,maxFontH);
+  var maxFontW2=has2?Math.floor(W*0.55/Math.max(t2.length,1)/0.62/maxPulse):fs1;
   var fs2=has2?Math.min(130,maxFontW2,maxFontH):fs1;
   if(!has2){drawTwoLines(t1,null,H/2,H/2,fs1,fs1,col,pulse,shk);}
   else{var h1=fs1*1.60*pulse,h2=fs2*1.60*pulse,sc2=(h1+h2)>H*0.92?H*0.92/(h1+h2):1,cy1=H/2-(h2*sc2)/2*0.85,cy2=H/2+(h1*sc2)/2*0.85;drawTwoLines(t1,t2,cy1,cy2,fs1,fs2,col,pulse,shk);}
