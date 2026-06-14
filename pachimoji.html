@@ -113,24 +113,24 @@ document.getElementById('t2').value='\u78ba\u5b9a\uff01';
 
 var COLORS=[
   {id:'gold',    name:'Gold',   ico:'\uD83E\uDD47',stops:['#fffce0','#ffe566','#cc8800','#ffee88','#7a4200','#ffe566','#cc8800'],rim:'#994400',rim2:'#ffe066',glow:'#ff8800',prev:['#ffe566','#cc8800','#7a4200']},
-  {id:'rainbow', name:'Rainbow',ico:'\uD83C\uDF08',stops:['#ff2200','#ff8800','#ffee00','#22ee44','#00aaff','#8833ff','#ff00bb'],rim:'#330066',rim2:'#cc88ff',glow:'#ff44ff',prev:['#ff2200','#00aaff','#ff00bb']},
-  {id:'fire',    name:'Fire',   ico:'\uD83D\uDD25',stops:['#ffffff','#ffff88','#ffcc00','#ff8800','#ff3300','#990000','#330000'],rim:'#660000',rim2:'#ffcc44',glow:'#ff4400',prev:['#ffff88','#ff6600','#990000']},
-  {id:'bluepink',name:'Neon',   ico:'\uD83D\uDC9C',stops:['#eef8ff','#88ccff','#4488ff','#aa44ff','#ff44cc','#ff8844','#44ccff'],rim:'#220055',rim2:'#cc88ff',glow:'#aa44ff',prev:['#4488ff','#aa44ff','#ff44cc']},
-  {id:'diamond', name:'Ice',    ico:'\uD83D\uDC8E',stops:['#ffffff','#eef8ff','#aaddff','#5599dd','#ffffff','#88ccff','#aaddff'],rim:'#002255',rim2:'#88ddff',glow:'#44aaff',prev:['#eef8ff','#5599dd','#aaddff']},
-  {id:'green',   name:'Green',  ico:'\uD83D\uDC9A',stops:['#f0fff0','#aaff88','#44dd00','#228800','#aaff44','#55bb00','#114400'],rim:'#114400',rim2:'#aaff44',glow:'#44ff00',prev:['#aaff88','#44dd00','#114400']},
-  {id:'rose',    name:'Pink',   ico:'\uD83C\uDF39',stops:['#fff0f5','#ffaacc','#ff4488','#cc0055','#ff88aa','#990033','#440011'],rim:'#660022',rim2:'#ffaacc',glow:'#ff4488',prev:['#ffaacc','#ff4488','#990033']},
-  {id:'despair', name:'Navy',   ico:'\uD83D\uDCA4',stops:['#aaccff','#3366cc','#0a1a66','#000833','#1a3399','#000522','#2244bb'],rim:'#000833',rim2:'#1a3399',glow:'#0033cc',prev:['#3366cc','#0a1a66','#000833']}
+  {id:'fire',    name:'Fire',   ico:'\uD83D\uDD25',stops:['#ffffff','#ffcccc','#ff6666','#ff0000','#cc0000','#880000','#330000'],rim:'#994400',rim2:'#ffe066',glow:'#ff0000',prev:['#ff6666','#ff0000','#880000']},
+  {id:'rainbow', name:'Rainbow',ico:'\uD83C\uDF08',stops:['#ff0000','#ff0000','#ff0000','#ff8800','#ffee00','#00cc00','#0077ff','#cc00ff','#ff00cc','#ff00cc'],rim:'#665544',rim2:'#bbb099',glow:'#ff44ff',prev:['#ff0000','#00aaff','#ff00cc']},
+  {id:'rose',    name:'Pink',   ico:'\uD83C\uDF39',stops:['#fff0f5','#ffaacc','#ff4488','#cc0055','#ff88aa','#990033','#440011'],rim:'#334466',rim2:'#aabbdd',glow:'#ff4488',prev:['#ffaacc','#ff4488','#990033']},
+  {id:'bluepink',name:'Neon',   ico:'\uD83D\uDC9C',stops:['#eef8ff','#88ccff','#4488ff','#aa44ff','#ff44cc','#ff8844','#44ccff'],rim:'#334466',rim2:'#aabbdd',glow:'#aa44ff',prev:['#4488ff','#aa44ff','#ff44cc']},
+  {id:'diamond', name:'Ice',    ico:'\uD83D\uDC8E',stops:['#ffffff','#eef8ff','#aaddff','#5599dd','#ffffff','#88ccff','#aaddff'],rim:'#334466',rim2:'#aabbdd',glow:'#44aaff',prev:['#eef8ff','#5599dd','#aaddff']},
+  {id:'green',   name:'Green',  ico:'\uD83D\uDC9A',stops:['#f0fff0','#aaff88','#44dd00','#228800','#aaff44','#55bb00','#114400'],rim:'#994400',rim2:'#ffe066',glow:'#44ff00',prev:['#aaff88','#44dd00','#114400']},
+  {id:'despair', name:'Navy',   ico:'\uD83D\uDCA4',stops:['#aaccff','#3366cc','#0a1a66','#000833','#1a3399','#000522','#2244bb'],rim:'#334466',rim2:'#aabbdd',glow:'#0033cc',prev:['#3366cc','#0a1a66','#000833']}
 ];
 
 var BGS=[
-  {id:'fire_red',   name:'Red',    ico:'\uD83D\uDC26\u200D\uD83D\uDD25'},
-  {id:'fire_orange',name:'Thunder',ico:'\u26A1'},
-  {id:'rainbow',    name:'Rainbow',ico:'\uD83C\uDF08'},
-  {id:'blue',       name:'Dark',   ico:'\u2620\uFE0F'},
-  {id:'purple',     name:'Purple', ico:'\uD83D\uDC7E'},
-  {id:'green',      name:'Green',  ico:'\uD83C\uDF3F'},
   {id:'gold_bills', name:'Money',  ico:'\uD83D\uDCB0'},
-  {id:'pink',       name:'Pink',   ico:'\uD83D\uDC97'}
+  {id:'fire_red',   name:'Red',    ico:'\uD83D\uDC26\u200D\uD83D\uDD25'},
+  {id:'rainbow',    name:'Rainbow',ico:'\uD83C\uDF08'},
+  {id:'pink',       name:'Pink',   ico:'\uD83D\uDC97'},
+  {id:'purple',     name:'Purple', ico:'\uD83D\uDC7E'},
+  {id:'fire_orange',name:'Thunder',ico:'\u26A1'},
+  {id:'green',      name:'Green',  ico:'\uD83C\uDF3F'},
+  {id:'blue',       name:'Dark',   ico:'\u2620\uFE0F'}
 ];
 
 var curC='gold',curB='gold_bills',animOn=false,animT=0,rafId=null,fontOK=false;
@@ -317,7 +317,7 @@ function drawTwoLines(t1,t2,cy1,cy2,fs1,fs2,col,pulse,shk){
   var os=document.createElement('canvas');os.width=W;os.height=H;var sc=os.getContext('2d');sc.fillStyle='#000';
   sc.save();AT(sc,W/2+shk,cy1,fs1*pulse,-0.035,-0.04);sc.lineWidth=fs1*pulse*0.62;sc.strokeStyle='#000';sc.strokeText(t1,0,0);sc.fillText(t1,0,0);sc.restore();
   if(t2){sc.save();AT(sc,W/2-shk*0.5,cy2,fs2*pulse,-0.035,-0.04);sc.lineWidth=fs2*pulse*0.62;sc.strokeStyle='#000';sc.strokeText(t2,0,0);sc.fillText(t2,0,0);sc.restore();}
-  [[0.60,'#000'],[0.50,dk(col.rim,0.65)],[0.40,'#000'],[0.30,brightenRim(col.rim2)],[0.18,'#000'],[0.10,brightenRim(col.rim2)],[0.04,'#000'],[0.016,col.rim2]].forEach(function(lr){ctx.save();ctx.save();AT(ctx,W/2+shk,cy1,fs1*pulse,-0.035,-0.04);ctx.lineWidth=fs1*pulse*lr[0];ctx.strokeStyle=lr[1];ctx.strokeText(t1,0,0);ctx.restore();    if(t2){ctx.save();AT(ctx,W/2-shk*0.5,cy2,fs2*pulse,-0.035,-0.04);ctx.lineWidth=fs2*pulse*lr[0];ctx.strokeStyle=lr[1];ctx.strokeText(t2,0,0);ctx.restore();}ctx.restore();});
+  [[0.56,'#000'],[0.50,dk(col.rim,0.65)],[0.40,'#000'],[0.30,brightenRim(col.rim2)],[0.18,'#000'],[0.10,brightenRim(col.rim2)],[0.04,'#000'],[0.016,col.rim2]].forEach(function(lr){ctx.save();ctx.save();AT(ctx,W/2+shk,cy1,fs1*pulse,-0.035,-0.04);ctx.lineWidth=fs1*pulse*lr[0];ctx.strokeStyle=lr[1];ctx.strokeText(t1,0,0);ctx.restore();    if(t2){ctx.save();AT(ctx,W/2-shk*0.5,cy2,fs2*pulse,-0.035,-0.04);ctx.lineWidth=fs2*pulse*lr[0];ctx.strokeStyle=lr[1];ctx.strokeText(t2,0,0);ctx.restore();}ctx.restore();});
   function mkMask(){var mo=document.createElement('canvas');mo.width=W;mo.height=H;var mc=mo.getContext('2d');mc.save();AT(mc,W/2+shk,cy1,fs1*pulse,-0.035,-0.04);mc.lineWidth=fs1*pulse*0.46;mc.strokeStyle='rgba(255,255,255,1)';mc.strokeText(t1,0,0);mc.restore();    if(t2){mc.save();AT(mc,W/2-shk*0.5,cy2,fs2*pulse,-0.035,-0.04);mc.lineWidth=fs2*pulse*0.46;mc.strokeStyle='rgba(255,255,255,1)';mc.strokeText(t2,0,0);mc.restore();}mc.globalCompositeOperation='destination-out';mc.save();AT(mc,W/2+shk,cy1,fs1*pulse,-0.035,-0.04);mc.lineWidth=fs1*pulse*0.17;mc.strokeStyle='#000';mc.strokeText(t1,0,0);mc.fillStyle='#000';mc.fillText(t1,0,0);mc.restore();if(t2){mc.save();AT(mc,W/2-shk*0.5,cy2,fs2*pulse,-0.035,-0.04);mc.lineWidth=fs2*pulse*0.17;mc.strokeStyle='#000';mc.strokeText(t2,0,0);mc.fillStyle='#000';mc.fillText(t2,0,0);mc.restore();}return mo;}
   var rimMask=mkMask();
   function addGloss(stops){var go=document.createElement('canvas');go.width=W;go.height=H;var gc2=go.getContext('2d');var g=ctx.createLinearGradient(0,0,0,H);stops.forEach(function(s){g.addColorStop(s[0],s[1]);});gc2.fillStyle=g;gc2.fillRect(0,0,W,H);gc2.globalCompositeOperation='destination-in';gc2.drawImage(rimMask,0,0);ctx.drawImage(go,0,0);}
@@ -330,7 +330,22 @@ function drawTwoLines(t1,t2,cy1,cy2,fs1,fs2,col,pulse,shk){
     function mkMask2(){var mo=document.createElement('canvas');mo.width=W;mo.height=H;var mc=mo.getContext('2d');mc.save();AT(mc,W/2-shk*0.5,cy2,fs2*pulse,-0.035,-0.04);mc.lineWidth=fs2*pulse*0.46;mc.strokeStyle='rgba(255,255,255,1)';mc.strokeText(t2,0,0);mc.restore();mc.globalCompositeOperation='destination-out';mc.save();AT(mc,W/2-shk*0.5,cy2,fs2*pulse,-0.035,-0.04);mc.lineWidth=fs2*pulse*0.17;mc.strokeStyle='#000';mc.strokeText(t2,0,0);mc.fillStyle='#000';mc.fillText(t2,0,0);mc.restore();return mo;}
     var rimMask2=mkMask2();
     var top2=cy2-fs2*pulse*0.5,bot2=cy2+fs2*pulse*1.2;
-    [[[0,'rgba(255,255,255,0)'],[0.12,'rgba(255,255,255,0)'],[0.24,'rgba(255,255,248,0.88)'],[0.34,'rgba(255,255,220,0.32)'],[0.44,'rgba(255,255,200,0)']],[[0,'rgba(255,220,80,0)'],[0.36,'rgba(255,220,80,0)'],[0.49,'rgba(255,205,70,0.24)'],[0.6,'rgba(255,220,80,0)']],[[0,'rgba(0,0,0,0)'],[0.52,'rgba(0,0,0,0)'],[0.7,'rgba(0,0,0,0.26)'],[0.85,'rgba(0,0,0,0.50)'],[1,'rgba(0,0,0,0.56)']],[[0,'rgba(255,240,170,0.32)'],[0.14,'rgba(255,240,170,0.14)'],[0.36,'rgba(255,240,170,0)']],[[0,'rgba(255,240,170,0)'],[0.62,'rgba(255,240,170,0)'],[0.86,'rgba(255,240,170,0.16)'],[1,'rgba(255,240,170,0.28)']]].forEach(function(stops){
+    // rim2の色に応じてGold系かSilver系のglossを使う
+    var isGold=col.rim2==='#ffe066';
+    var isSilver=col.rim2==='#aabbdd';
+    var g1=isGold?[[0,'rgba(255,255,255,0)'],[0.12,'rgba(255,255,255,0)'],[0.24,'rgba(255,255,248,0.88)'],[0.34,'rgba(255,255,220,0.32)'],[0.44,'rgba(255,255,200,0)']]
+        :isSilver?[[0,'rgba(255,255,255,0)'],[0.12,'rgba(255,255,255,0)'],[0.24,'rgba(240,248,255,0.88)'],[0.34,'rgba(220,235,255,0.32)'],[0.44,'rgba(200,220,255,0)']]
+                 :[[0,'rgba(255,255,255,0)'],[0.12,'rgba(255,255,255,0)'],[0.24,'rgba(248,255,240,0.88)'],[0.34,'rgba(235,255,220,0.32)'],[0.44,'rgba(220,255,200,0)']];
+    var g2=isGold?[[0,'rgba(255,220,80,0)'],[0.36,'rgba(255,220,80,0)'],[0.49,'rgba(255,205,70,0.24)'],[0.6,'rgba(255,220,80,0)']]
+        :isSilver?[[0,'rgba(180,210,255,0)'],[0.36,'rgba(180,210,255,0)'],[0.49,'rgba(160,195,255,0.24)'],[0.6,'rgba(180,210,255,0)']]
+                 :[[0,'rgba(180,255,180,0)'],[0.36,'rgba(180,255,180,0)'],[0.49,'rgba(160,235,160,0.24)'],[0.6,'rgba(180,255,180,0)']];
+    var g4=isGold?[[0,'rgba(255,240,170,0.32)'],[0.14,'rgba(255,240,170,0.14)'],[0.36,'rgba(255,240,170,0)']]
+        :isSilver?[[0,'rgba(170,210,255,0.32)'],[0.14,'rgba(170,210,255,0.14)'],[0.36,'rgba(170,210,255,0)']]
+                 :[[0,'rgba(200,255,200,0.32)'],[0.14,'rgba(200,255,200,0.14)'],[0.36,'rgba(200,255,200,0)']];
+    var g5=isGold?[[0,'rgba(255,240,170,0)'],[0.62,'rgba(255,240,170,0)'],[0.86,'rgba(255,240,170,0.16)'],[1,'rgba(255,240,170,0.28)']]
+        :isSilver?[[0,'rgba(170,210,255,0)'],[0.62,'rgba(170,210,255,0)'],[0.86,'rgba(170,210,255,0.16)'],[1,'rgba(170,210,255,0.28)']]
+                 :[[0,'rgba(200,255,200,0)'],[0.62,'rgba(200,255,200,0)'],[0.86,'rgba(200,255,200,0.16)'],[1,'rgba(200,255,200,0.28)']];
+    [g1,g2,[[0,'rgba(0,0,0,0)'],[0.52,'rgba(0,0,0,0)'],[0.7,'rgba(0,0,0,0.26)'],[0.85,'rgba(0,0,0,0.50)'],[1,'rgba(0,0,0,0.56)']],g4,g5].forEach(function(stops){
       var go=document.createElement('canvas');go.width=W;go.height=H;var gc2=go.getContext('2d');
       var g2=gc2.createLinearGradient(0,top2,0,bot2);
       stops.forEach(function(s){g2.addColorStop(s[0],s[1]);});
