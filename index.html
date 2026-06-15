@@ -15,10 +15,11 @@
 <meta name="twitter:title" content="むたっこ製作所 — あったらいいなが、ここにある。">
 <meta name="twitter:description" content="日常をちょっと楽しくする無料Webツール集。登録不要・スマホ対応。Free web tools by Muta Works.">
 <link rel="canonical" href="https://mutaccoworks.github.io/">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
+  --max-w:720px;
   --bg:#f0f4f5;
   --surface:#ffffff;
   --text:#0e0e0e;
@@ -33,7 +34,7 @@
 body{
   background:var(--bg);
   color:var(--text);
-  font-family:'Noto Sans JP','Outfit',sans-serif;
+  font-family:'DotGothic16','Noto Sans JP','Outfit',sans-serif;
   min-height:100vh;
   -webkit-font-smoothing:antialiased;
   /* ドットグリッド背景 */
@@ -78,47 +79,60 @@ header{
 
 /* ヒーロー */
 .hero{
-  max-width:800px;margin:0 auto;
-  padding:56px 32px 40px;
+  max-width:var(--max-w);margin:0 auto;
+  padding:64px 24px 48px;
   display:grid;
-  grid-template-columns:1fr auto;
-  gap:32px;
+  grid-template-columns:1fr 160px;
+  gap:40px;
   align-items:center;
+  position:relative;
 }
 .hero-left{}
 .hero-eyebrow{
   font-family:'Press Start 2P',monospace;
-  font-size:8px;color:var(--accent);
-  letter-spacing:0.1em;margin-bottom:20px;
+  font-size:11px;color:var(--accent);
+  letter-spacing:0.12em;margin-bottom:24px;
   display:flex;align-items:center;gap:10px;
+  text-shadow:0 1px 0 rgba(1,145,162,0.3);
 }
-.hero-eyebrow::before{content:'▶';font-size:8px;}
+.hero-eyebrow::before{content:'▶';font-size:9px;}
 .hero-title-ja{
-  font-family:'Press Start 2P',monospace;
-  font-size:clamp(14px,3.5vw,22px);
-  line-height:1.8;color:var(--text);
-  margin-bottom:10px;
+  font-family:'DotGothic16','Press Start 2P',monospace;
+  font-size:clamp(22px,5vw,34px);
+  line-height:1.9;color:#0a0a0a;font-weight:900;
+  margin-bottom:12px;
+  text-shadow:
+    2px 2px 0 rgba(1,145,162,0.25),
+    4px 4px 0 rgba(1,145,162,0.12),
+    0 1px 8px rgba(0,0,0,0.08);
+  letter-spacing:-0.01em;
 }
-.hero-title-ja .accent{color:var(--accent);}
+.hero-title-ja .accent{
+  color:var(--accent);
+  text-shadow:
+    2px 2px 0 rgba(1,145,162,0.4),
+    4px 4px 0 rgba(1,145,162,0.2);
+}
 .hero-title-en{
   font-family:'Press Start 2P',monospace;
   font-size:clamp(10px,2.5vw,16px);
-  line-height:1.8;color:var(--text);
+  line-height:1.8;color:#0a0a0a;font-weight:900;
   margin-bottom:10px;
 }
 .hero-title-en .accent{color:var(--accent);}
 .hero-subtitle-ja{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:13px;color:var(--text-3);
-  margin-bottom:6px;line-height:1.8;
+  font-family:'DotGothic16',monospace;
+  font-size:16px;font-weight:700;color:#333;
+  margin-bottom:8px;line-height:1.8;
+  letter-spacing:0.02em;
 }
 .hero-subtitle-en{
   font-family:'Outfit',sans-serif;
-  font-size:13px;color:var(--text-3);
+  font-size:14px;color:#555;
   margin-bottom:28px;line-height:1.8;
 }
 .hero-chara{
-  width:180px;
+  width:160px;
   image-rendering:pixelated;
   image-rendering:crisp-edges;
   flex-shrink:0;
@@ -136,7 +150,8 @@ header{
   background:var(--surface);
   border:2px solid var(--border);
   border-radius:var(--r);
-  max-width:420px;
+  max-width:100%;
+  display:inline-flex;
 }
 .stat-num{
   font-family:'Press Start 2P',monospace;
@@ -149,13 +164,13 @@ header{
   text-transform:uppercase;color:var(--text-3);margin-top:5px;
 }
 .stat-lbl-ja{
-  font-family:'Noto Sans JP',sans-serif;
+  font-family:'DotGothic16','Noto Sans JP',sans-serif;
   font-size:10px;color:var(--text-3);margin-top:5px;
 }
 .stat-div{width:2px;height:32px;background:var(--border);}
 
 /* ツールセクション */
-.section{max-width:800px;margin:0 auto;padding:0 32px 80px;}
+.section{max-width:var(--max-w);margin:0 auto;padding:32px 24px 80px;}
 .section-label{
   font-family:'Press Start 2P',monospace;
   font-size:9px;color:var(--accent);
@@ -164,9 +179,9 @@ header{
 }
 .section-label::before{content:'■';font-size:8px;}
 .section-title{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:20px;font-weight:700;color:var(--text);
-  margin-bottom:20px;
+  font-family:'DotGothic16','Noto Sans JP',sans-serif;
+  font-size:26px;font-weight:900;color:#0a0a0a;letter-spacing:-0.01em;
+  margin-bottom:16px;
 }
 .section-title.en{font-family:'Outfit',sans-serif;font-size:20px;}
 
@@ -174,9 +189,10 @@ header{
 .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
 .tool-card{
   background:var(--surface);
-  border:2px solid var(--border);
+  border:2px solid #ccc;
   border-radius:var(--r);
-  padding:24px 22px 20px;
+  padding:28px 26px 24px;
+  box-shadow:0 3px 12px rgba(0,0,0,0.09);
   text-decoration:none;color:var(--text);
   display:flex;flex-direction:column;
   position:relative;overflow:hidden;
@@ -190,36 +206,39 @@ header{
 }
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
 .card-icon{
-  width:40px;height:40px;
+  width:48px;height:48px;
   background:var(--accent-light);
   border-radius:var(--r);
   display:flex;align-items:center;justify-content:center;
-  font-size:20px;
+  font-size:26px;
   border:2px solid var(--accent-mid);
   image-rendering:pixelated;
+  line-height:1;
+  text-align:center;
 }
 .card-arrow{
   font-family:'Press Start 2P',monospace;
   font-size:10px;color:var(--text-3);
   transition:color 0.15s;
 }
-.tool-card:hover .card-arrow{color:var(--accent);}
+.tool-card:hover .card-arrow{color:var(--accent) !important;}
 .card-name-en{
   font-family:'Press Start 2P',monospace;
-  font-size:11px;line-height:1.6;
+  font-size:14px;line-height:1.6;
+  color:#0a0a0a;font-weight:900;
   margin-bottom:4px;
 }
 .card-name-ja{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:12px;color:var(--text-3);margin-bottom:10px;
+  font-family:'DotGothic16',monospace;
+  font-size:16px;color:#111;margin-bottom:10px;
 }
 .card-desc-en{
   font-family:'Outfit',sans-serif;
-  font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:6px;
+  font-size:14px;color:#222;line-height:1.7;margin-bottom:6px;font-weight:600;
 }
 .card-desc-ja{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:12px;color:var(--text-3);line-height:1.8;flex:1;
+  font-family:'DotGothic16','Noto Sans JP',sans-serif;
+  font-size:13px;color:#444;line-height:1.8;flex:1;font-weight:500;
 }
 .card-foot{
   display:flex;align-items:center;gap:8px;
@@ -253,8 +272,8 @@ header{
 /* フッター */
 footer{border-top:2px solid var(--accent);background:var(--surface);position:relative;z-index:1;}
 .footer-inner{
-  max-width:800px;margin:0 auto;
-  padding:24px 32px;
+  max-width:var(--max-w);margin:0 auto;
+  padding:24px 24px;
   display:flex;align-items:center;justify-content:space-between;gap:20px;
 }
 .foot-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
@@ -278,13 +297,94 @@ footer{border-top:2px solid var(--accent);background:var(--surface);position:rel
 [data-lang="ja"] .en{display:none!important;}
 @media(max-width:600px){
   header{padding:0 16px;}
-  .hero{grid-template-columns:1fr;padding:36px 18px 28px;gap:20px;}
+  .hero{grid-template-columns:1fr;padding:36px 18px 28px;gap:24px;}
   .hero-chara{width:130px;margin:0 auto;}
   .section{padding:0 18px 60px;}
   .footer-inner{flex-direction:column;align-items:flex-start;gap:14px;}
   .foot-links{flex-wrap:wrap;gap:14px;}
   .hero-stats{gap:16px;}
 }
+
+/* ===== ゲームメニュー風 ===== */
+/* スキャンライン */
+body::after{
+  content:'';
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:9999;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,transparent 2px,
+    rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px
+  );
+}
+
+/* セクションタイトルをゲーム風に */
+.section-title{
+  font-family:'Press Start 2P',monospace !important;
+  font-size:18px !important;font-weight:400 !important;
+  color:var(--accent);
+  margin-bottom:24px;
+  display:flex;align-items:center;gap:12px;
+  letter-spacing:0.05em;
+}
+.section-title::before{
+  content:'▶ SELECT';
+  font-size:14px;color:var(--accent);
+  animation:blink 1.2s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ツールグリッドをリスト風に */
+.tools-grid{
+  display:flex;flex-direction:column;gap:0;
+  border:2px solid var(--accent);
+  border-radius:8px;
+  overflow:hidden;
+  background:var(--surface);
+}
+
+/* カードをメニュー項目風に */
+.tool-card{
+  border:none !important;
+  border-bottom:1px solid rgba(1,145,162,0.2) !important;
+  border-radius:0 !important;
+  padding:18px 20px !important;
+  box-shadow:none !important;
+  background:var(--surface);
+  display:flex !important;flex-direction:row !important;
+  align-items:center;gap:16px;
+  position:relative;
+}
+.tool-card:last-child{border-bottom:none !important;}
+.tool-card::before{
+  content:'  ';
+  font-family:'Press Start 2P',monospace;
+  font-size:12px;color:var(--accent);
+  flex-shrink:0;width:20px;
+  opacity:0;
+  transition:opacity 0.1s;
+}
+.tool-card:hover::before{content:'▶ ';opacity:1;font-size:16px;}
+.tool-card:hover{
+  background:var(--accent-light) !important;
+  transform:none !important;
+  box-shadow:none !important;
+  border-color:rgba(1,145,162,0.2) !important;
+}
+
+/* カード内レイアウト調整 */
+.card-head{margin-bottom:0 !important;flex-shrink:0;}
+.card-icon{width:100px !important;height:100px !important;font-size:56px !important;line-height:1 !important;display:flex !important;align-items:center !important;justify-content:center !important;padding-bottom:12px !important;}
+.card-body{flex:1;min-width:0;}
+.card-name-en{font-size:13px !important;margin-bottom:3px !important;}
+.card-name-ja{font-size:14px !important;margin-bottom:6px !important;color:#222 !important;}
+.card-desc-en,.card-desc-ja{font-size:11px !important;color:#666 !important;margin-bottom:0 !important;}
+.card-foot{margin-top:6px !important;padding-top:0 !important;border-top:none !important;display:flex;align-items:center;gap:6px;}
+.card-arrow{font-family:'Press Start 2P',monospace;font-size:16px;color:var(--text-3);flex-shrink:0;transition:color 0.15s;display:block !important;}
+
+/* soonカード */
+.tool-card.soon{border-bottom:1px dashed rgba(1,145,162,0.2) !important;}
+
 </style>
 </head>
 <body data-lang="ja">
@@ -335,43 +435,46 @@ footer{border-top:2px solid var(--accent);background:var(--surface);position:rel
   </div>
 
   <div class="section">
-    <div class="section-label en">Tools</div>
-    <div class="section-label ja">ツール一覧</div>
-    <div class="section-title ja">すべてのツール</div>
-    <div class="section-title en">All Tools</div>
+    <div class="section-title ja"> </div>
     <div class="tools-grid">
 
       <a class="tool-card" href="pachimoji.html">
-        <div class="card-head">
-          <div class="card-icon">🎰</div>
-          <div class="card-arrow">▶</div>
+        <div class="card-icon">🎰</div>
+        <div class="card-body">
+          <div class="card-name-en">Pachi Moji</div>
+          <div class="card-name-ja ja">パチ文字メーカー</div>
+          <div class="card-desc-en en">Generate flashy pachinko-style text images & animated GIFs. Perfect for social media posts.</div>
+          <div class="card-desc-ja ja">パチンコ風のド派手な文字画像・GIFが作れるジェネレーター。SNSにそのまま投稿できます。</div>
+          <div class="card-foot">
+            <span class="tag">Image · GIF</span>
+            <span class="tag-free">FREE</span>
+          </div>
         </div>
-        <div class="card-name-en">Pachi Moji</div>
-        <div class="card-name-ja ja">パチ文字メーカー</div>
-        <div class="card-desc-en en">Generate flashy pachinko-style text images & animated GIFs. Perfect for social media posts.</div>
-        <div class="card-desc-ja ja">パチンコ風のド派手な文字画像・GIFが作れるジェネレーター。SNSにそのまま投稿できます。</div>
-        <div class="card-foot">
-          <span class="tag">Image · GIF</span>
-          <span class="tag-free">Free</span>
-        </div>
+        <div class="card-arrow">▶</div>
       </a>
 
       <div class="tool-card soon">
-        <div class="card-head"><div class="card-icon">？</div></div>
-        <div class="card-name-en">Coming Soon</div>
-        <div class="card-name-ja ja">近日公開</div>
-        <div class="card-desc-en en">Next tool is in the works!</div>
-        <div class="card-desc-ja ja">只今開発中です。お楽しみに！</div>
-        <div class="card-foot"><span class="tag-soon">Coming Soon</span></div>
+        <div class="card-icon">？</div>
+        <div class="card-body">
+          <div class="card-name-en">Coming Soon</div>
+          <div class="card-name-ja ja">近日公開</div>
+          <div class="card-desc-en en">Next tool is in the works!</div>
+          <div class="card-desc-ja ja">只今開発中です。お楽しみに！</div>
+          <div class="card-foot"><span class="tag-soon">Coming Soon</span></div>
+        </div>
+        <div class="card-arrow">▶</div>
       </div>
 
       <div class="tool-card soon">
-        <div class="card-head"><div class="card-icon">？</div></div>
-        <div class="card-name-en">Coming Soon</div>
-        <div class="card-name-ja ja">近日公開</div>
-        <div class="card-desc-en en">More tools on the way!</div>
-        <div class="card-desc-ja ja">さらに新しいツールを準備中です。</div>
-        <div class="card-foot"><span class="tag-soon">Coming Soon</span></div>
+        <div class="card-icon">？</div>
+        <div class="card-body">
+          <div class="card-name-en">Coming Soon</div>
+          <div class="card-name-ja ja">近日公開</div>
+          <div class="card-desc-en en">More tools on the way!</div>
+          <div class="card-desc-ja ja">さらに新しいツールを準備中です。</div>
+          <div class="card-foot"><span class="tag-soon">Coming Soon</span></div>
+        </div>
+        <div class="card-arrow">▶</div>
       </div>
 
     </div>
@@ -480,10 +583,15 @@ function setLang(l){
   function draw(){
     ctx.clearRect(0,0,W,H);
     t+=0.012;
+    // ヒーロータイトル部分のみ除外（hero-statsより上）
+    var heroEl=document.querySelector('.hero-stats');
+    var heroH=heroEl?heroEl.getBoundingClientRect().top:0;
     items.forEach(function(item){
       // ふわふわ上下
       var fy=item.baseY+Math.sin(t*item.speed+item.offset)*18;
       var fx=item.x+Math.sin(t*item.speed*0.7+item.offset)*8;
+      // ヒーローエリアは描画しない
+      if(fy<heroH+20)return;
       // 少しずつ横流れ
       item.x+=item.drift;
       if(item.x<-80)item.x=W+40;
