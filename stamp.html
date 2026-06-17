@@ -776,7 +776,7 @@ function drawStamp(cv, size, t){
   // 背景
   var bgTrans = curMode === 'text' 
     ? document.getElementById('bgTransparent').checked
-    : false;
+    : false; // 画像モードはデフォルト背景あり
   if(!bgTrans){
     ctx.fillStyle = document.getElementById('bgColor').value;
     ctx.fillRect(0, 0, size, size);
@@ -977,12 +977,15 @@ function drawImage(ctx, size, t){
   if(!uploadedImage) return;
   var iw = uploadedImage.naturalWidth || uploadedImage.width;
   var ih = uploadedImage.naturalHeight || uploadedImage.height;
-  var scale = Math.min(size / iw, size / ih) * 0.9;
+  if(!iw || !ih) return;
+  // 枠にぴったり収まるスケール
+  var scale = Math.min(size / iw, size / ih);
   var dw = iw * scale, dh = ih * scale;
   var sxEl = document.getElementById('imgScaleX');
   var syEl = document.getElementById('imgScaleY2');
   var sx = sxEl ? parseInt(sxEl.value)/100 : 1;
   var sy = syEl ? parseInt(syEl.value)/100 : 1;
+  // ctx.translateで既にsize/2が中心なので-dw/2, -dh/2で中央揃え
   ctx.drawImage(uploadedImage, -dw*sx/2, -dh*sy/2, dw*sx, dh*sy);
 }
 
