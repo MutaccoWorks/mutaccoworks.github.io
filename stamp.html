@@ -83,9 +83,9 @@ header{width:100%;max-width:800px;padding:2px 16px 0}
 .text-input:focus{border-color:var(--accent)}
 
 /* フォントテンプレ */
-.font-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
-@media(max-width:640px){.font-grid{grid-template-columns:repeat(3,1fr)}}
-.font-card{background:#f8f9fa;border:1.5px solid var(--border);border-radius:8px;padding:10px 8px;cursor:pointer;text-align:center;transition:all 0.15s;display:flex;flex-direction:column;gap:4px;align-items:center}
+.font-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px}
+@media(max-width:640px){.font-grid{grid-template-columns:repeat(4,1fr)}}
+.font-card{background:#f8f9fa;border:1.5px solid var(--border);border-radius:8px;padding:7px 5px;cursor:pointer;text-align:center;transition:all 0.15s;display:flex;flex-direction:column;gap:3px;align-items:center}
 .font-card:hover{border-color:#444}
 .font-card.on{border-color:var(--accent);background:rgba(1,145,162,0.12)}
 .font-card .fc-preview{font-size:18px;line-height:1.2;color:#111}
@@ -105,13 +105,13 @@ input[type=color]:hover{border-color:var(--accent)}
 input[type=range]{width:100%;accent-color:var(--accent)}
 
 /* アニメーション */
-.anim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px}
-@media(max-width:640px){.anim-grid{grid-template-columns:repeat(3,1fr)}}
-.anim-card{background:#f8f9fa;border:1.5px solid var(--border);border-radius:8px;padding:8px 4px;cursor:pointer;text-align:center;transition:all 0.15s;display:flex;flex-direction:column;gap:3px;align-items:center}
+.anim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:5px}
+@media(max-width:640px){.anim-grid{grid-template-columns:repeat(4,1fr)}}
+.anim-card{background:#f8f9fa;border:1.5px solid var(--border);border-radius:6px;padding:5px 3px;cursor:pointer;text-align:center;transition:all 0.15s;display:flex;flex-direction:column;gap:2px;align-items:center}
 .anim-card:hover{border-color:#444}
 .anim-card.on{border-color:var(--accent);background:rgba(1,145,162,0.12)}
-.anim-card .ac-icon{font-size:16px}
-.anim-card .ac-name{font-size:9px;color:var(--text2);letter-spacing:1px;font-family:sans-serif}
+.anim-card .ac-icon{font-size:14px}
+.anim-card .ac-name{font-size:8px;color:var(--text2);letter-spacing:0.5px;font-family:sans-serif}
 .anim-card.on .ac-name{color:var(--accent2)}
 
 
@@ -152,8 +152,8 @@ footer{width:100%;max-width:800px;padding:16px;text-align:center;font-size:10px;
 @media(max-width:640px){.right-col{grid-template-columns:1fr}}
 @media(max-width:640px){.chat-preview-inner{flex-direction:row!important}}
 @media(max-width:640px){.chat-preview-inner>div{flex:1;min-width:0}}
-@media(max-width:640px){.preview-inner{flex-direction:row!important;align-items:flex-start}}
-@media(max-width:640px){.preview-inner canvas{width:55%!important;flex-shrink:0}}
+@media(max-width:640px){.preview-inner{flex-direction:row!important;align-items:stretch}}
+@media(max-width:640px){.preview-inner canvas{width:auto!important;height:100%!important;flex-shrink:0}}
 @media(max-width:640px){.dl-buttons{grid-template-columns:1fr!important;flex:1}}
 @media(max-width:640px) and (orientation:landscape){.right-col{grid-template-columns:1fr 1fr}}
 @media(max-width:640px){
@@ -373,9 +373,9 @@ footer{width:100%;max-width:800px;padding:16px;text-align:center;font-size:10px;
       <div class="preview-row">
       <div class="preview-area" style="padding:12px">
         <span class="preview-label">PREVIEW</span>
-        <div class="preview-inner" style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
-          <canvas class="preview-canvas" id="cvPreview" width="210" height="210" style="width:100%;aspect-ratio:1;display:block"></canvas>
-          <div class="dl-buttons" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <div class="preview-inner" style="display:flex;flex-direction:row;gap:8px;margin-top:8px;align-items:stretch">
+          <canvas class="preview-canvas" id="cvPreview" width="210" height="210" style="flex:0 0 auto;width:auto;height:100%;aspect-ratio:1;display:block;align-self:stretch"></canvas>
+          <div class="dl-buttons" style="display:flex;flex-direction:column;gap:6px;flex:1">
             <button class="dl-btn teams" onclick="download('teams')" style="width:100%">
               <span class="dl-icon">🟦</span>
               <span class="dl-label">Download / Teams</span>
@@ -978,15 +978,15 @@ function drawImage(ctx, size, t){
   var iw = uploadedImage.naturalWidth || uploadedImage.width;
   var ih = uploadedImage.naturalHeight || uploadedImage.height;
   if(!iw || !ih) return;
-  // 枠にぴったり収まるスケール
-  var scale = Math.min(size / iw, size / ih);
-  var dw = iw * scale, dh = ih * scale;
   var sxEl = document.getElementById('imgScaleX');
   var syEl = document.getElementById('imgScaleY2');
   var sx = sxEl ? parseInt(sxEl.value)/100 : 1;
   var sy = syEl ? parseInt(syEl.value)/100 : 1;
-  // ctx.translateで既にsize/2が中心なので-dw/2, -dh/2で中央揃え
-  ctx.drawImage(uploadedImage, -dw*sx/2, -dh*sy/2, dw*sx, dh*sy);
+  // ctx.translateで既にsize/2が中心 → ここでは0,0が中心座標
+  var scale = Math.min(size / iw, size / ih);
+  var dw = iw * scale * sx;
+  var dh = ih * scale * sy;
+  ctx.drawImage(uploadedImage, -dw/2, -dh/2, dw, dh);
 }
 
 // ===== 背景透過処理 =====
@@ -1110,6 +1110,22 @@ document.getElementById('textInput').addEventListener('input', renderPreview);
   });
 });
 document.getElementById('bgTransparent').addEventListener('change', renderPreview);
+document.getElementById('imgBgTransparent').addEventListener('change', function(){
+  if(this.checked && uploadedImage){
+    var color = document.getElementById('imgBgColor').value;
+    var tol = parseInt(document.getElementById('tolerance').value);
+    var processed = removeBackground(uploadedImage, color, tol);
+    processed.onload = function(){ uploadedImage = processed; renderPreview(); };
+  }
+});
+document.getElementById('imgBgColor').addEventListener('input', function(){
+  if(document.getElementById('imgBgTransparent').checked && uploadedImage){
+    var color = this.value;
+    var tol = parseInt(document.getElementById('tolerance').value);
+    var processed = removeBackground(uploadedImage, color, tol);
+    processed.onload = function(){ uploadedImage = processed; renderPreview(); };
+  }
+});
 
 // ファイルアップロード
 document.getElementById('fileInput').addEventListener('change', function(e){
