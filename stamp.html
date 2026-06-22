@@ -30,7 +30,7 @@ header{width:100%;max-width:800px;padding:2px 16px 0}
 .top-banner:hover{background:#f0f8fa}
 .top-banner-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;position:relative;z-index:1}
 .top-banner-left{display:flex;align-items:center;gap:10px}
-.top-banner-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#001518,#003040);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.top-banner-icon{width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#fff;border:1px solid #e0e0e0;}
 .top-banner-text{display:flex;flex-direction:column;gap:1px}
 .top-banner-ja{font-size:14px;font-weight:bold;color:#111;letter-spacing:0.5px;font-family:'Zen Black',sans-serif;-webkit-text-fill-color:#111}
 .top-banner-en{font-size:9px;color:#0191a2;letter-spacing:0.5px;font-family:sans-serif;white-space:nowrap}
@@ -332,8 +332,8 @@ footer{width:100%;max-width:800px;padding:16px;text-align:center;font-size:10px;
           <input type="color" id="imgBgColor" value="#ffffff">
         </div>
         <div class="slider-row" style="flex:1;min-width:120px">
-          <label>許容範囲 <span id="toleranceVal">30</span></label>
-          <input type="range" id="tolerance" min="0" max="100" value="30">
+          <label>許容範囲 <span id="toleranceVal">0</span></label>
+          <input type="range" id="tolerance" min="0" max="100" value="0">
         </div>
       </div>
     </div>
@@ -346,6 +346,14 @@ footer{width:100%;max-width:800px;padding:16px;text-align:center;font-size:10px;
       <div class="slider-row">
         <label>縦幅 <span id="imgScaleYVal">100</span>%</label>
         <input type="range" id="imgScaleY2" min="10" max="200" value="100">
+      </div>
+      <div class="slider-row">
+        <label>左右位置 <span id="imgPosXVal">0</span></label>
+        <input type="range" id="imgPosX" min="-100" max="100" value="0">
+      </div>
+      <div class="slider-row">
+        <label>上下位置 <span id="imgPosYVal">0</span></label>
+        <input type="range" id="imgPosY" min="-100" max="100" value="0">
       </div>
     </div>
   </div><!-- /imageMode -->
@@ -456,7 +464,7 @@ footer{width:100%;max-width:800px;padding:16px;text-align:center;font-size:10px;
   <p style="margin:0 0 10px;">会社の<strong style="color:#444;">Teams絵文字</strong>・<strong style="color:#444;">Slackスタンプ</strong>・<strong style="color:#444;">Discord絵文字</strong>をまとめて作成可能。フォントやカラーを自由にカスタマイズして、職場やコミュニティにぴったりな<strong style="color:#444;">自作絵文字</strong>・<strong style="color:#444;">自作スタンプ</strong>が作れます。GIFアニメーション対応なので動くスタンプも作成できます。</p>
   <p style="margin:0;">文字を入力してフォント・色・サイズを選ぶだけ。登録不要・完全無料で使えます。スマホ・PC両対応。作ったスタンプはPNGまたはGIFでダウンロードしてすぐ使えます。</p>
 </div>
-<footer>© 2026 Mutacco Works.</footer>
+<footer>© 2026 Mutacco Works. ｜ <a href="https://mutaccoworks.github.io/privacy.html" style="color:#888;text-decoration:none;letter-spacing:1px">Privacy Policy</a></footer>
 
 <script>
 (function(){
@@ -799,7 +807,7 @@ function drawStamp(cv, size, t){
   // 背景
   var bgTrans = curMode === 'text' 
     ? document.getElementById('bgTransparent').checked
-    : false;
+    : document.getElementById('imgBgTransparent').checked; // 画像モードは透過チェックに連動
   if(!bgTrans){
     ctx.fillStyle = document.getElementById('bgColor').value;
     ctx.fillRect(0, 0, size, size);
@@ -1024,34 +1032,42 @@ function drawImage(ctx, size, t, img){
   var scale = Math.min(size / iw, size / ih);
   var dw = iw * scale * sx;
   var dh = ih * scale * sy;
-  ctx.drawImage(img, -dw/2, -dh/2, dw, dh);
+  var pxEl = document.getElementById('imgPosX');
+  var pyEl = document.getElementById('imgPosY');
+  var px = pxEl ? parseInt(pxEl.value) : 0;
+  var py = pyEl ? parseInt(pyEl.value) : 0;
+  ctx.drawImage(img, -dw/2 + px, -dh/2 + py, dw, dh);
 }
 
 // ===== 背景透過処理 =====
 function removeBackground(imgElement, targetColor, tolerance){
-  var offscreen = document.createElement('canvas');
-  var iw = imgElement.naturalWidth || imgElement.width;
-  var ih = imgElement.naturalHeight || imgElement.height;
-  if(!iw || !ih) return imgElement;
-  offscreen.width = iw; offscreen.height = ih;
-  var oc = offscreen.getContext('2d');
-  oc.drawImage(imgElement, 0, 0);
-  var imageData = oc.getImageData(0, 0, iw, ih);
-  var data = imageData.data;
-  var tr = parseInt(targetColor.slice(1,3), 16);
-  var tg = parseInt(targetColor.slice(3,5), 16);
-  var tb = parseInt(targetColor.slice(5,7), 16);
-  for(var i = 0; i < data.length; i += 4){
-    var dr = Math.abs(data[i] - tr);
-    var dg = Math.abs(data[i+1] - tg);
-    var db = Math.abs(data[i+2] - tb);
-    if((dr + dg + db) / 3 < tolerance){
-      data[i+3] = 0;
+  try {
+    var offscreen = document.createElement('canvas');
+    var iw = imgElement.naturalWidth || imgElement.width;
+    var ih = imgElement.naturalHeight || imgElement.height;
+    if(!iw || !ih) return imgElement;
+    offscreen.width = iw; offscreen.height = ih;
+    var oc = offscreen.getContext('2d');
+    oc.drawImage(imgElement, 0, 0);
+    var imageData = oc.getImageData(0, 0, iw, ih); // CORSエラーの可能性あり
+    var data = imageData.data;
+    var tr = parseInt(targetColor.slice(1,3), 16);
+    var tg = parseInt(targetColor.slice(3,5), 16);
+    var tb = parseInt(targetColor.slice(5,7), 16);
+    for(var i = 0; i < data.length; i += 4){
+      var dr = Math.abs(data[i] - tr);
+      var dg = Math.abs(data[i+1] - tg);
+      var db = Math.abs(data[i+2] - tb);
+      if((dr + dg + db) / 3 < tolerance){
+        data[i+3] = 0;
+      }
     }
+    oc.putImageData(imageData, 0, 0);
+    return offscreen;
+  } catch(e) {
+    console.warn('背景透過に失敗しました（CORSの可能性）:', e);
+    return imgElement;
   }
-  oc.putImageData(imageData, 0, 0);
-  // canvasを直接返す（Imageオブジェクトより確実）
-  return offscreen;
 }
 
 // ===== プレビュー更新 =====
@@ -1136,7 +1152,7 @@ function makeGif(platform, size){
 
 // テキスト/カラー変更でリアルタイム更新
 document.getElementById('textInput').addEventListener('input', renderPreview);
-['strokeWidth','fontSize','fontScaleY','letterSpacing','lineGap','animSpeed','imgScaleX','imgScaleY2'].forEach(function(id){
+['strokeWidth','fontSize','fontScaleY','letterSpacing','lineGap','animSpeed','imgScaleX','imgScaleY2','imgPosX','imgPosY'].forEach(function(id){
   var el = document.getElementById(id);
   if(!el) return;
   var valEl = document.getElementById(id + 'Val');
@@ -1147,6 +1163,12 @@ document.getElementById('textInput').addEventListener('input', renderPreview);
 });
 document.getElementById('bgTransparent').addEventListener('change', renderPreview);
 // 透過処理はdrawStamp内でリアルタイムに行う
+document.getElementById('imgBgTransparent').addEventListener('change', renderPreview);
+document.getElementById('imgBgColor').addEventListener('input', renderPreview);
+document.getElementById('tolerance').addEventListener('input', function(){
+  document.getElementById('toleranceVal').textContent = this.value;
+  renderPreview();
+});
 
 // ファイルアップロード
 document.getElementById('fileInput').addEventListener('change', function(e){
