@@ -191,7 +191,7 @@ footer{width:100%;max-width:800px;padding:16px;text-align:center;font-size:10px;
         <div class="top-banner-en">Mutacco Works — 無料ツール集</div>
       </div>
     </div>
-    <div class="top-banner-btn">見ていってね 🐈‍⬛</div>
+    <div class="top-banner-btn">ほかのツールも見ていってね 🐈‍⬛</div>
   </div>
 </a>
 
@@ -522,7 +522,7 @@ var ANIMS = [
   // ── 揺れ・振動系 ──
   {id:'wave',      name:'揺れる',      icon:'〰️'},
   {id:'swing',     name:'スイング',     icon:'🎵'},
-  {id:'nami',      name:'なみなみ',     icon:'🌊'},
+  {id:'nami',      name:'なみなみ',     icon:'🌊', textOnly:true},
   {id:'shake',     name:'ぷるぷる',     icon:'📳'},
   {id:'jolt',      name:'ぶるっ',      icon:'⚡'},
   {id:'heartbeat', name:'ドキドキ',     icon:'❤️'},
@@ -537,9 +537,9 @@ var ANIMS = [
   // ── 表示・非表示系 ──
   {id:'fade',      name:'フェード',     icon:'🌫️'},
   {id:'pulse',     name:'点滅',        icon:'💫'},
-  {id:'typewriter',name:'タイプ打ち',   icon:'⌨️'},
+  {id:'typewriter',name:'タイプ打ち',   icon:'⌨️', textOnly:true},
   // ── エフェクト系 ──
-  {id:'rainbow',   name:'虹色',        icon:'🌈'},
+  {id:'rainbow',   name:'虹色',        icon:'🌈', textOnly:true},
   {id:'kiran',     name:'キラン',      icon:'✨'},
   {id:'neon',      name:'ネオン',      icon:'💡'},
 ];
@@ -552,7 +552,7 @@ var originalImage = null; // オリジナルを保持
 // デフォルト画像としてむたっこのアイコンを読み込む
 var defaultImg = new Image();
 defaultImg.onload = function(){ uploadedImage = defaultImg; originalImage = defaultImg; renderPreview(); };
-defaultImg.src = 'images/mutacco_cat.gif';
+defaultImg.src = 'images/icon.png';
 var animFrame = null;
 var animT = 0;
 
@@ -651,6 +651,11 @@ function buildAnimGrid(){
       }
       startAnim();
     };
+    // テキストのみのアニメは画像モードで非表示
+    if(a.textOnly){
+      el.classList.add('text-only-anim');
+      el.style.display = curMode === 'image' ? 'none' : '';
+    }
     el.setAttribute('data-id', a.id);
     g.appendChild(el);
   });
@@ -663,6 +668,22 @@ window.switchMode = function(mode){
   document.getElementById('tabImage').classList.toggle('on', mode === 'image');
   document.getElementById('textMode').style.display = mode === 'text' ? 'flex' : 'none';
   document.getElementById('imageMode').style.display = mode === 'image' ? 'flex' : 'none';
+  // テキストのみアニメの表示切り替え
+  document.querySelectorAll('.text-only-anim').forEach(function(el){
+    el.style.display = mode === 'image' ? 'none' : '';
+  });
+  // 画像モードでtextOnlyアニメが選択中なら「なし」にリセット
+  if(mode === 'image'){
+    var textOnlyIds = ['typewriter','rainbow','nami'];
+    var hasTextOnly = curAnims.some(function(id){ return textOnlyIds.indexOf(id) !== -1; });
+    if(hasTextOnly){
+      curAnims = curAnims.filter(function(id){ return textOnlyIds.indexOf(id) === -1; });
+      if(curAnims.length === 0) curAnims = ['none'];
+      document.querySelectorAll('.anim-card').forEach(function(x){ x.classList.remove('on'); });
+      var noneCard = document.querySelector('.anim-card[data-id="none"]');
+      if(noneCard) noneCard.classList.add('on');
+    }
+  }
   renderPreview();
 }
 
@@ -785,14 +806,15 @@ function drawStamp(cv, size, t){
   }
 
   // 画像モード：背景透過処理をリアルタイムに適用
+  var processedImage = uploadedImage;
   if(curMode === 'image' && originalImage){
     var imgBgTrans = document.getElementById('imgBgTransparent').checked;
     if(imgBgTrans){
       var color = document.getElementById('imgBgColor').value;
       var tol = parseInt(document.getElementById('tolerance').value);
-      uploadedImage = removeBackground(originalImage, color, tol);
+      processedImage = removeBackground(originalImage, color, tol);
     } else {
-      uploadedImage = originalImage;
+      processedImage = originalImage;
     }
   }
 
@@ -840,8 +862,8 @@ function drawStamp(cv, size, t){
 
   if(curMode === 'text'){
     drawText(ctx, size, t, anim);
-  } else if(uploadedImage){
-    drawImage(ctx, size, t);
+  } else if(processedImage){
+    drawImage(ctx, size, t, processedImage);
   }
   ctx.restore();
 
@@ -903,7 +925,7 @@ function drawStamp(cv, size, t){
     ctx.rotate(anim.rot * Math.PI / 180);
     ctx.scale(anim.sc, anim.sc);
     if(curMode === 'text') drawText(ctx, size, t, anim);
-    else if(uploadedImage) drawImage(ctx, size, t);
+    else if(processedImage) drawImage(ctx, size, t, processedImage);
     ctx.restore();
   }
 }
@@ -987,10 +1009,11 @@ function drawLines(ctx, lines, baseY, lineH, ls, sw, textColor, namiT, typeChars
   });
 }
 
-function drawImage(ctx, size, t){
-  if(!uploadedImage) return;
-  var iw = uploadedImage.naturalWidth || uploadedImage.width;
-  var ih = uploadedImage.naturalHeight || uploadedImage.height;
+function drawImage(ctx, size, t, img){
+  img = img || uploadedImage;
+  if(!img) return;
+  var iw = img.naturalWidth || img.width;
+  var ih = img.naturalHeight || img.height;
   if(!iw || !ih) return;
   var sxEl = document.getElementById('imgScaleX');
   var syEl = document.getElementById('imgScaleY2');
@@ -1001,7 +1024,7 @@ function drawImage(ctx, size, t){
   var scale = Math.min(size / iw, size / ih);
   var dw = iw * scale * sx;
   var dh = ih * scale * sy;
-  ctx.drawImage(uploadedImage, -dw/2, -dh/2, dw, dh);
+  ctx.drawImage(img, -dw/2, -dh/2, dw, dh);
 }
 
 // ===== 背景透過処理 =====
