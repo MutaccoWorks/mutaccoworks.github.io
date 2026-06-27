@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>赤ちゃんの名前候補を提案 | AIが名付けをサポート | むたっこ製作所</title>
-<meta name="description" content="赤ちゃんの名前をAIが提案。性別・字数・雰囲気・ジャンル（宝石・季節・古風など）・姓との画数相性・願いを入力するだけ。命名・名付けを無料でサポート。登録不要・スマホ対応。むたっこ製作所。">
+<title>赤ちゃんの名前候補を提案 | 命名・名付けサポート | むたっこ製作所</title>
+<meta name="description" content="赤ちゃんの名前をランダム提案。性別・字数・雰囲気・ジャンル（宝石・季節・古風など）から名前候補を提案。画数診断ツールへのリンクつき。登録不要・無料・スマホ対応。むたっこ製作所。">
 <link rel="icon" href="images/icon.png">
 <link rel="canonical" href="https://mutaccoworks.github.io/namegen.html">
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700;900&family=Noto+Serif+JP:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
@@ -12,21 +12,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#fdf8ff;
-  --surface:#ffffff;
-  --surface2:#f8f0ff;
-  --accent:#7c4dbe;
-  --accent2:#b39ddb;
-  --gold:#f9a825;
-  --pink:#f48fb1;
-  --text:#1a0a2e;
-  --text2:#6a4a8a;
-  --border:#e0d0f0;
-  --r:14px;
+  --bg:#fdf8ff;--surface:#ffffff;--surface2:#f8f0ff;
+  --accent:#7c4dbe;--accent2:#b39ddb;--text:#1a0a2e;--text2:#6a4a8a;--border:#e0d0f0;--r:14px;
 }
 body{background:var(--bg);color:var(--text);font-family:'Zen Kaku Gothic New',sans-serif;min-height:100vh;}
-
-/* バナー */
 .top-banner{width:100%;background:#fff;border-bottom:2px solid #d0e8ec;padding:0;text-decoration:none;display:block;}
 .top-banner-inner{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;}
 .top-banner-left{display:flex;align-items:center;gap:10px;}
@@ -37,85 +26,50 @@ body{background:var(--bg);color:var(--text);font-family:'Zen Kaku Gothic New',sa
 .top-banner-en{font-size:9px;color:#0191a2;letter-spacing:0.5px;white-space:nowrap;}
 .top-banner-btn{background:linear-gradient(90deg,#005f6b,#0191a2,#00d4e8,#0191a2,#005f6b);background-size:300%;color:#fff;font-size:12px;font-weight:bold;padding:8px 14px;border-radius:20px;letter-spacing:1px;white-space:nowrap;box-shadow:0 2px 12px rgba(1,145,162,0.4);animation:gbg 2s linear infinite;}
 @keyframes gbg{0%{background-position:0%}100%{background-position:300%}}
-
 .page-header{text-align:center;padding:28px 16px 8px;}
 .page-header h1{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;letter-spacing:4px;color:var(--accent);}
 .page-header p{font-size:12px;color:var(--text2);margin-top:6px;letter-spacing:1px;}
-
 .main{max-width:640px;margin:0 auto;padding:0 16px 40px;display:flex;flex-direction:column;gap:14px;}
-
-/* パネル */
 .panel{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:10px;}
 .panel-title{font-size:10px;font-weight:700;letter-spacing:4px;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:8px;}
-
-/* 性別ボタン */
 .gender-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
 .gender-btn{border:1.5px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;text-align:center;transition:all 0.15s;background:#fff;}
 .gender-btn.on{border-color:var(--accent);background:rgba(124,77,190,0.08);}
 .gender-btn .g-icon{font-size:20px;display:block;margin-bottom:4px;}
 .gender-btn .g-name{font-size:12px;color:var(--text2);letter-spacing:1px;}
 .gender-btn.on .g-name{color:var(--accent);font-weight:700;}
-
-/* チップ選択 */
 .chip-group{display:flex;flex-wrap:wrap;gap:6px;}
 .chip{border:1.5px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;background:#fff;transition:all 0.15s;letter-spacing:0.5px;}
 .chip.on{background:var(--accent);color:#fff;border-color:var(--accent);}
 .chip:hover:not(.on){border-color:var(--accent);color:var(--accent);}
-
-/* ジャンルカード */
 .genre-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;}
 .genre-card{border:1.5px solid var(--border);border-radius:10px;padding:8px 6px;cursor:pointer;text-align:center;transition:all 0.15s;background:#fff;}
 .genre-card.on{border-color:var(--accent);background:rgba(124,77,190,0.08);}
 .genre-card .g-emoji{font-size:18px;display:block;margin-bottom:3px;}
 .genre-card .g-label{font-size:10px;color:var(--text2);letter-spacing:0.5px;}
 .genre-card.on .g-label{color:var(--accent);font-weight:700;}
-
-/* 入力 */
 .text-input{border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:15px;font-family:'Zen Kaku Gothic New',sans-serif;outline:none;background:var(--surface2);transition:border-color 0.15s;width:100%;}
 .text-input:focus{border-color:var(--accent);}
-textarea.text-input{resize:vertical;min-height:70px;line-height:1.7;}
-
-/* 生成ボタン */
 .gen-btn{background:linear-gradient(135deg,var(--accent),#b39ddb);color:#fff;font-family:'Noto Serif JP',serif;font-size:16px;font-weight:700;letter-spacing:3px;border:none;border-radius:var(--r);padding:16px;cursor:pointer;box-shadow:0 4px 16px rgba(124,77,190,0.4);transition:transform 0.1s;}
 .gen-btn:hover{transform:translateY(-1px);}
 .gen-btn:active{transform:scale(0.98);}
-.gen-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
-
-/* ローディング */
-.loading{text-align:center;padding:20px;color:var(--text2);font-size:13px;letter-spacing:2px;display:none;}
-.loading.show{display:block;}
-.dot-flashing{display:inline-flex;gap:6px;margin-left:8px;}
-.dot-flashing span{width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:dotfl 1s infinite;}
-.dot-flashing span:nth-child(2){animation-delay:0.2s;}
-.dot-flashing span:nth-child(3){animation-delay:0.4s;}
-@keyframes dotfl{0%,80%,100%{opacity:0.2}40%{opacity:1}}
-
-/* 結果 */
 .result-area{display:flex;flex-direction:column;gap:10px;}
 .name-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:box-shadow 0.2s;}
 .name-card:hover{box-shadow:0 4px 16px rgba(124,77,190,0.15);}
 .name-card-head{padding:14px 16px 8px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
 .name-kanji{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:var(--text);}
 .name-yomi{font-size:13px;color:var(--text2);}
-.name-strokes{font-size:11px;color:var(--accent);background:rgba(124,77,190,0.1);border-radius:20px;padding:2px 8px;}
-.name-meaning{padding:0 16px 8px;font-size:13px;color:var(--text2);line-height:1.8;}
-.name-tags{padding:0 16px 12px;display:flex;flex-wrap:wrap;gap:4px;}
+.name-tags{padding:0 16px 8px;display:flex;flex-wrap:wrap;gap:4px;}
 .name-tag{font-size:10px;color:var(--accent2);background:rgba(179,157,219,0.15);border-radius:10px;padding:2px 8px;border:1px solid rgba(124,77,190,0.2);}
-.name-links{padding:8px 16px 12px;display:flex;gap:6px;border-top:1px solid var(--border);}
+.name-links{padding:8px 16px 12px;display:flex;gap:6px;border-top:1px solid var(--border);flex-wrap:wrap;}
 .name-link{display:inline-flex;align-items:center;gap:3px;padding:4px 10px;border-radius:20px;font-size:11px;text-decoration:none;border:1px solid var(--border);color:var(--text2);transition:all 0.15s;}
 .name-link:hover{border-color:var(--accent);color:var(--accent);}
-
-.error-msg{background:#fff0f0;border:1.5px solid #ffcccc;border-radius:10px;padding:12px;font-size:12px;color:#cc0000;display:none;}
-.error-msg.show{display:block;}
-
 .ad-space{width:100%;height:60px;background:var(--surface2);border:1px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--accent2);font-size:10px;letter-spacing:2px;}
-
 footer{text-align:center;padding:16px;font-size:10px;color:#aaa;letter-spacing:2px;}
 footer a{color:#aaa;text-decoration:none;}
 </style>
 </head>
 <body>
-
 <a class="top-banner" href="index.html">
   <div class="top-banner-inner">
     <div class="top-banner-left">
@@ -131,24 +85,23 @@ footer a{color:#aaa;text-decoration:none;}
 
 <div class="page-header">
   <h1>🐣 赤ちゃんの名前</h1>
-  <p>AIが候補を提案します ― 命名・名付けサポート</p>
+  <p>条件を選ぶだけ ― 名前の候補を提案します</p>
 </div>
 
 <div class="main">
-
   <div class="ad-space">[ AD ]</div>
 
   <!-- 性別 -->
   <div class="panel">
     <div class="panel-title">性別</div>
     <div class="gender-btns">
-      <div class="gender-btn on" data-val="男の子" onclick="selectGender(this)">
+      <div class="gender-btn on" data-val="boy" onclick="selectGender(this)">
         <span class="g-icon">👦🏻</span><span class="g-name">男の子</span>
       </div>
-      <div class="gender-btn" data-val="女の子" onclick="selectGender(this)">
+      <div class="gender-btn" data-val="girl" onclick="selectGender(this)">
         <span class="g-icon">👧🏻</span><span class="g-name">女の子</span>
       </div>
-      <div class="gender-btn" data-val="どちらでも" onclick="selectGender(this)">
+      <div class="gender-btn" data-val="both" onclick="selectGender(this)">
         <span class="g-icon">👶🏻</span><span class="g-name">どちらでも</span>
       </div>
     </div>
@@ -158,259 +111,845 @@ footer a{color:#aaa;text-decoration:none;}
   <div class="panel">
     <div class="panel-title">字数</div>
     <div class="chip-group" id="mojiGroup">
-      <div class="chip on" data-val="こだわらない">こだわらない</div>
-      <div class="chip" data-val="1文字">1文字</div>
-      <div class="chip" data-val="2文字">2文字</div>
-      <div class="chip" data-val="3文字">3文字</div>
-    </div>
-  </div>
-
-  <!-- 雰囲気 -->
-  <div class="panel">
-    <div class="panel-title">雰囲気（複数選択可）</div>
-    <div class="chip-group" id="vibeGroup">
-      <div class="chip" data-val="かっこいい">かっこいい</div>
-      <div class="chip" data-val="かわいい">かわいい</div>
-      <div class="chip" data-val="やわらかい">やわらかい</div>
-      <div class="chip" data-val="凛々しい">凛々しい</div>
-      <div class="chip" data-val="おおらか">おおらか</div>
-      <div class="chip" data-val="知的な">知的な</div>
-      <div class="chip" data-val="明るい">明るい</div>
-      <div class="chip" data-val="落ち着いた">落ち着いた</div>
+      <div class="chip on" data-val="0">こだわらない</div>
+      <div class="chip" data-val="1">1文字</div>
+      <div class="chip" data-val="2">2文字</div>
+      <div class="chip" data-val="3">3文字</div>
     </div>
   </div>
 
   <!-- ジャンル -->
   <div class="panel">
-    <div class="panel-title">名前のジャンル（複数選択可）</div>
+    <div class="panel-title">テーマ・ジャンル（複数選択可）</div>
     <div class="genre-grid" id="genreGroup">
-      <div class="genre-card" data-val="宝石・鉱石">
-        <span class="g-emoji">💎</span><span class="g-label">宝石・鉱石</span>
-      </div>
-      <div class="genre-card" data-val="春・桜・花">
-        <span class="g-emoji">🌸</span><span class="g-label">春・桜・花</span>
-      </div>
-      <div class="genre-card" data-val="夏・空・海">
-        <span class="g-emoji">🌊</span><span class="g-label">夏・空・海</span>
-      </div>
-      <div class="genre-card" data-val="秋・紅葉">
-        <span class="g-emoji">🍁</span><span class="g-label">秋・紅葉</span>
-      </div>
-      <div class="genre-card" data-val="冬・雪・凛">
-        <span class="g-emoji">❄️</span><span class="g-label">冬・雪・凛</span>
-      </div>
-      <div class="genre-card" data-val="星・宇宙・光">
-        <span class="g-emoji">⭐</span><span class="g-label">星・宇宙・光</span>
-      </div>
-      <div class="genre-card" data-val="古風・和風">
-        <span class="g-emoji">⛩️</span><span class="g-label">古風・和風</span>
-      </div>
-      <div class="genre-card" data-val="自然・大地">
-        <span class="g-emoji">🌿</span><span class="g-label">自然・大地</span>
-      </div>
-      <div class="genre-card" data-val="龍・虎・鳳">
-        <span class="g-emoji">🐉</span><span class="g-label">龍・虎・鳳</span>
-      </div>
-      <div class="genre-card" data-val="音・楽器・詩">
-        <span class="g-emoji">🎵</span><span class="g-label">音・楽器・詩</span>
-      </div>
-      <div class="genre-card" data-val="色・彩り">
-        <span class="g-emoji">🎨</span><span class="g-label">色・彩り</span>
-      </div>
-      <div class="genre-card" data-val="幸・愛・和">
-        <span class="g-emoji">🍀</span><span class="g-label">幸・愛・和</span>
-      </div>
+      <div class="genre-card on" data-val="all"><span class="g-emoji">🍽</span><span class="g-label">なんでも</span></div>
+      <div class="genre-card" data-val="gem"><span class="g-emoji">💎</span><span class="g-label">宝石・鉱石</span></div>
+      <div class="genre-card" data-val="spring"><span class="g-emoji">🌸</span><span class="g-label">春・桜・花</span></div>
+      <div class="genre-card" data-val="summer"><span class="g-emoji">🌊</span><span class="g-label">夏・空・海</span></div>
+      <div class="genre-card" data-val="autumn"><span class="g-emoji">🍁</span><span class="g-label">秋・紅葉</span></div>
+      <div class="genre-card" data-val="winter"><span class="g-emoji">❄️</span><span class="g-label">冬・雪・凛</span></div>
+      <div class="genre-card" data-val="star"><span class="g-emoji">⭐</span><span class="g-label">星・光</span></div>
+      <div class="genre-card" data-val="old"><span class="g-emoji">⛩️</span><span class="g-label">古風・和風</span></div>
+      <div class="genre-card" data-val="nature"><span class="g-emoji">🌿</span><span class="g-label">自然・大地</span></div>
+      <div class="genre-card" data-val="music"><span class="g-emoji">🎵</span><span class="g-label">音・楽器</span></div>
+      <div class="genre-card" data-val="happy"><span class="g-emoji">🍀</span><span class="g-label">幸・愛・和</span></div>
+      <div class="genre-card" data-val="cool"><span class="g-emoji">⚡</span><span class="g-label">かっこいい</span></div>
     </div>
-  </div>
-
-  <!-- 姓と画数 -->
-  <div class="panel">
-    <div class="panel-title">姓（任意）</div>
-    <input class="text-input" id="lastNameInput" type="text" placeholder="例：田中（画数の相性も考慮します）" maxlength="10">
   </div>
 
   <!-- 使いたい漢字 -->
   <div class="panel">
     <div class="panel-title">使いたい漢字（任意）</div>
-    <input class="text-input" id="kanjiInput" type="text" placeholder="例：蓮、空、愛（複数可）" maxlength="20">
-    <div style="font-size:10px;color:var(--text2)">この漢字を必ず含む名前を提案します</div>
+    <input class="text-input" id="kanjiInput" type="text" placeholder="例：蓮、空、愛" maxlength="10">
+    <div style="font-size:10px;color:var(--text2)">この漢字を含む名前を優先して提案します</div>
   </div>
 
-  <!-- 願い・想い -->
-  <div class="panel">
-    <div class="panel-title">子への願い・想い（任意）</div>
-    <textarea class="text-input" id="wishInput" placeholder="例：元気で明るく、人に愛される子に育ってほしい"></textarea>
-  </div>
-
-  <!-- 生成ボタン -->
-  <button class="gen-btn" id="genBtn" onclick="generate()">🐣 名前を提案してもらう</button>
-
-  <!-- ローディング -->
-  <div class="loading" id="loading">
-    AIが考えています
-    <div class="dot-flashing"><span></span><span></span><span></span></div>
-  </div>
-
-  <!-- エラー -->
-  <div class="error-msg" id="errorMsg"></div>
-
-  <!-- 結果 -->
-  <div id="resultArea"></div>
+  <button class="gen-btn" onclick="generate()">🐣 名前を提案する</button>
+  <div class="result-area" id="resultArea"></div>
 
   <div class="ad-space">[ AD ]</div>
 
   <div style="font-size:11px;color:var(--text2);line-height:2;letter-spacing:0.5px;background:var(--surface);border-radius:var(--r);border:1.5px solid var(--border);padding:14px;">
     <p style="margin-bottom:6px;font-size:12px;color:var(--text);font-weight:bold">赤ちゃんの名前提案ツールとは？</p>
-    <p><strong>赤ちゃんの命名・名付け</strong>をAIがサポートする無料ツールです。性別・字数・雰囲気・ジャンル（宝石・季節・古風など）・姓との<strong>画数相性</strong>・親の<strong>願い</strong>を入力するだけで名前の候補を提案します。</p>
-    <p style="margin-top:6px"><strong>子供の名前 候補</strong>・<strong>名付け アイデア</strong>・<strong>赤ちゃん 名前 おすすめ</strong>など、命名に迷っているパパ・ママの参考になれば嬉しいです。</p>
-    <p style="margin-top:6px;font-size:10px;color:#aaa">※ 提案はAIによるものです。最終的な命名は戸籍等のルールをご確認のうえ、ご家族でお決めください。</p>
+    <p><strong>赤ちゃんの命名・名付け</strong>をサポートする無料ツールです。性別・字数・テーマから名前の候補を提案します。<strong>子供の名前 候補</strong>・<strong>名付け アイデア</strong>・<strong>赤ちゃん 名前 おすすめ</strong>など、命名に迷っているパパ・ママの参考に。</p>
+    <p style="margin-top:6px;font-size:10px;color:#aaa">※ 最終的な命名は戸籍等のルールをご確認のうえ、ご家族でお決めください。</p>
   </div>
-
 </div>
 
 <footer>© 2026 Mutacco Works. ｜ <a href="https://mutaccoworks.github.io/privacy.html">Privacy Policy</a> ｜ <a href="https://forms.gle/iqYoraUazwuqxXeC9" target="_blank">お問い合わせ</a></footer>
 
 <script>
-var selectedGender = '男の子';
-var selectedMoji = 'こだわらない';
-var selectedVibes = [];
-var selectedGenres = [];
+// ===== 名前データベース =====
+// gender: boy/girl/both  moji: 文字数  tags: ジャンル配列
+var NAMES = [
+  // ===== 男の子 人気名 =====
+  {kanji:'蓮',yomi:'れん',gender:'boy',moji:1,tags:['spring','nature','happy']},
+  {kanji:'湊',yomi:'みなと',gender:'boy',moji:1,tags:['summer','nature']},
+  {kanji:'碧',yomi:'あお',gender:'boy',moji:1,tags:['summer','nature','cool']},
+  {kanji:'凪',yomi:'なぎ',gender:'both',moji:1,tags:['summer','nature','happy']},
+  {kanji:'蒼',yomi:'あお',gender:'boy',moji:1,tags:['summer','nature','cool']},
+  {kanji:'藍',yomi:'らん',gender:'both',moji:1,tags:['summer','gem','cool']},
+  {kanji:'翔',yomi:'しょう',gender:'boy',moji:1,tags:['star','cool','nature']},
+  {kanji:'朔',yomi:'さく',gender:'boy',moji:1,tags:['star','old','cool']},
+  {kanji:'陸',yomi:'りく',gender:'boy',moji:1,tags:['nature','cool']},
+  {kanji:'律',yomi:'りつ',gender:'both',moji:1,tags:['music','old']},
+  {kanji:'晴',yomi:'はる',gender:'both',moji:1,tags:['spring','summer','happy']},
+  {kanji:'陽翔',yomi:'はると',gender:'boy',moji:2,tags:['star','cool','nature']},
+  {kanji:'朝陽',yomi:'あさひ',gender:'boy',moji:2,tags:['summer','star','happy']},
+  {kanji:'陽向',yomi:'ひなた',gender:'both',moji:2,tags:['spring','summer','happy']},
+  {kanji:'蓮太郎',yomi:'れんたろう',gender:'boy',moji:3,tags:['spring','old','nature']},
+  {kanji:'悠真',yomi:'ゆうま',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'颯太',yomi:'そうた',gender:'boy',moji:2,tags:['cool','nature']},
+  {kanji:'悠斗',yomi:'ゆうと',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'大翔',yomi:'ひろと',gender:'boy',moji:2,tags:['cool','star']},
+  {kanji:'結翔',yomi:'ゆいと',gender:'boy',moji:2,tags:['cool','star']},
+  {kanji:'海斗',yomi:'かいと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'蒼空',yomi:'そら',gender:'boy',moji:2,tags:['summer','nature','cool']},
+  {kanji:'光',yomi:'ひかる',gender:'boy',moji:1,tags:['star','happy']},
+  {kanji:'樹',yomi:'いつき',gender:'boy',moji:1,tags:['nature','old']},
+  {kanji:'凱',yomi:'かい',gender:'boy',moji:1,tags:['cool','old']},
+  {kanji:'煌',yomi:'こう',gender:'boy',moji:1,tags:['star','cool']},
+  {kanji:'瑛',yomi:'えい',gender:'boy',moji:1,tags:['gem','cool']},
+  {kanji:'旺',yomi:'おう',gender:'boy',moji:1,tags:['cool','old']},
+  {kanji:'嵐',yomi:'らん',gender:'boy',moji:1,tags:['nature','cool']},
+  {kanji:'柊',yomi:'しゅう',gender:'boy',moji:1,tags:['winter','nature']},
+  {kanji:'奏太',yomi:'そうた',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'太陽',yomi:'たいよう',gender:'boy',moji:2,tags:['summer','star','happy']},
+  {kanji:'翼',yomi:'つばさ',gender:'boy',moji:1,tags:['cool','star','nature']},
+  {kanji:'龍',yomi:'りゅう',gender:'boy',moji:1,tags:['cool','old']},
+  {kanji:'豪',yomi:'ごう',gender:'boy',moji:1,tags:['cool','old']},
+  {kanji:'剛',yomi:'つよし',gender:'boy',moji:1,tags:['cool','old']},
+  {kanji:'誠',yomi:'まこと',gender:'boy',moji:1,tags:['old','happy']},
+  {kanji:'匠',yomi:'たくみ',gender:'boy',moji:1,tags:['old','cool']},
+  {kanji:'洸',yomi:'こう',gender:'boy',moji:1,tags:['summer','star']},
+  {kanji:'湧',yomi:'わく',gender:'boy',moji:1,tags:['nature','summer']},
+  {kanji:'晃',yomi:'あきら',gender:'boy',moji:1,tags:['star','old']},
+  {kanji:'陽大',yomi:'ひろと',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'蒼汰',yomi:'そうた',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'幸太郎',yomi:'こうたろう',gender:'boy',moji:3,tags:['happy','old']},
+  {kanji:'大地',yomi:'だいち',gender:'boy',moji:2,tags:['nature','old']},
+  {kanji:'空',yomi:'そら',gender:'both',moji:1,tags:['summer','nature','cool']},
+  {kanji:'海',yomi:'かい',gender:'boy',moji:1,tags:['summer','nature']},
+  {kanji:'勇',yomi:'いさむ',gender:'boy',moji:1,tags:['cool','old']},
+  {kanji:'健',yomi:'けん',gender:'boy',moji:1,tags:['old','happy']},
+  {kanji:'智',yomi:'とも',gender:'both',moji:1,tags:['old','happy']},
+  // ===== 女の子 人気名 =====
+  {kanji:'凛',yomi:'りん',gender:'girl',moji:1,tags:['winter','cool','happy']},
+  {kanji:'翠',yomi:'すい',gender:'girl',moji:1,tags:['gem','nature','cool']},
+  {kanji:'葵',yomi:'あおい',gender:'both',moji:1,tags:['spring','nature','happy']},
+  {kanji:'陽葵',yomi:'ひまり',gender:'girl',moji:2,tags:['spring','summer','happy']},
+  {kanji:'紬',yomi:'つむぎ',gender:'girl',moji:1,tags:['old','music','happy']},
+  {kanji:'芽依',yomi:'めい',gender:'girl',moji:2,tags:['spring','nature','happy']},
+  {kanji:'陽菜',yomi:'ひな',gender:'girl',moji:2,tags:['spring','summer','happy']},
+  {kanji:'結菜',yomi:'ゆな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'莉子',yomi:'りこ',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'さくら',yomi:'さくら',gender:'girl',moji:3,tags:['spring','happy']},
+  {kanji:'桜',yomi:'さくら',gender:'girl',moji:1,tags:['spring','happy']},
+  {kanji:'咲',yomi:'さく',gender:'girl',moji:1,tags:['spring','happy']},
+  {kanji:'花',yomi:'はな',gender:'girl',moji:1,tags:['spring','happy','nature']},
+  {kanji:'美月',yomi:'みつき',gender:'girl',moji:2,tags:['star','gem','happy']},
+  {kanji:'心春',yomi:'こはる',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'琴葉',yomi:'ことは',gender:'girl',moji:2,tags:['music','autumn','happy']},
+  {kanji:'澪',yomi:'みお',gender:'girl',moji:1,tags:['summer','nature','old']},
+  {kanji:'凜',yomi:'りん',gender:'girl',moji:1,tags:['winter','cool','happy']},
+  {kanji:'雪',yomi:'ゆき',gender:'girl',moji:1,tags:['winter','happy']},
+  {kanji:'朱莉',yomi:'あかり',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'明里',yomi:'あかり',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'結衣',yomi:'ゆい',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'優花',yomi:'ゆうか',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'美咲',yomi:'みさき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'杏',yomi:'あん',gender:'girl',moji:1,tags:['spring','nature']},
+  {kanji:'茉莉',yomi:'まり',gender:'girl',moji:2,tags:['spring','gem','happy']},
+  {kanji:'彩葉',yomi:'いろは',gender:'girl',moji:2,tags:['autumn','nature','happy']},
+  {kanji:'琉那',yomi:'るな',gender:'girl',moji:2,tags:['star','gem']},
+  {kanji:'月',yomi:'つき',gender:'girl',moji:1,tags:['star','old']},
+  {kanji:'星',yomi:'ひかり',gender:'girl',moji:1,tags:['star','happy']},
+  {kanji:'椿',yomi:'つばき',gender:'girl',moji:1,tags:['winter','spring','nature']},
+  {kanji:'楓',yomi:'かえで',gender:'both',moji:1,tags:['autumn','nature']},
+  {kanji:'瑠奈',yomi:'るな',gender:'girl',moji:2,tags:['star','gem']},
+  {kanji:'珠希',yomi:'たまき',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'琴音',yomi:'ことね',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'奏',yomi:'かなで',gender:'girl',moji:1,tags:['music','happy']},
+  {kanji:'詩',yomi:'うた',gender:'girl',moji:1,tags:['music','old']},
+  {kanji:'茜',yomi:'あかね',gender:'girl',moji:1,tags:['autumn','nature','happy']},
+  {kanji:'紅葉',yomi:'もみじ',gender:'girl',moji:2,tags:['autumn','nature']},
+  {kanji:'菫',yomi:'すみれ',gender:'girl',moji:1,tags:['spring','nature']},
+  {kanji:'藤',yomi:'ふじ',gender:'girl',moji:1,tags:['spring','nature','old']},
+  {kanji:'蘭',yomi:'らん',gender:'girl',moji:1,tags:['spring','nature','gem']},
+  {kanji:'珊瑚',yomi:'さんご',gender:'girl',moji:2,tags:['gem','summer']},
+  {kanji:'瑠璃',yomi:'るり',gender:'girl',moji:2,tags:['gem','star']},
+  {kanji:'琥珀',yomi:'こはく',gender:'both',moji:2,tags:['gem','autumn']},
+  {kanji:'珀',yomi:'はく',gender:'both',moji:1,tags:['gem']},
+  {kanji:'碧海',yomi:'みなみ',gender:'girl',moji:2,tags:['gem','summer']},
+  {kanji:'紫苑',yomi:'しおん',gender:'girl',moji:2,tags:['autumn','nature','old']},
+  {kanji:'梓',yomi:'あずさ',gender:'girl',moji:1,tags:['nature','old']},
+  {kanji:'柚',yomi:'ゆず',gender:'girl',moji:1,tags:['winter','nature']},
+  {kanji:'柚子',yomi:'ゆずこ',gender:'girl',moji:2,tags:['winter','nature','old']},
+  {kanji:'萌',yomi:'もえ',gender:'girl',moji:1,tags:['spring','happy','nature']},
+  {kanji:'彩',yomi:'いろは',gender:'girl',moji:1,tags:['happy','nature']},
+  {kanji:'心',yomi:'こころ',gender:'girl',moji:1,tags:['happy']},
+  {kanji:'愛',yomi:'あい',gender:'girl',moji:1,tags:['happy']},
+  {kanji:'恵',yomi:'めぐみ',gender:'girl',moji:1,tags:['happy','old']},
+  {kanji:'和',yomi:'なごみ',gender:'both',moji:1,tags:['happy','old']},
+  {kanji:'幸',yomi:'さち',gender:'girl',moji:1,tags:['happy','old']},
+  {kanji:'希',yomi:'のぞみ',gender:'girl',moji:1,tags:['happy','star']},
+  {kanji:'実',yomi:'みのり',gender:'both',moji:1,tags:['nature','happy','old']},
+  {kanji:'緑',yomi:'みどり',gender:'girl',moji:1,tags:['nature','spring']},
+  {kanji:'翠碧',yomi:'みどり',gender:'girl',moji:2,tags:['gem','nature']},
+  {kanji:'雫',yomi:'しずく',gender:'girl',moji:1,tags:['nature','gem','summer']},
+  {kanji:'夢',yomi:'ゆめ',gender:'girl',moji:1,tags:['happy','star']},
+  {kanji:'桃',yomi:'もも',gender:'girl',moji:1,tags:['spring','happy']},
+  {kanji:'苺',yomi:'いちご',gender:'girl',moji:1,tags:['spring','happy']},
+  {kanji:'暖',yomi:'はる',gender:'both',moji:1,tags:['spring','happy']},
+  {kanji:'美晴',yomi:'みはる',gender:'girl',moji:2,tags:['spring','happy','star']},
+  {kanji:'朝花',yomi:'あさか',gender:'girl',moji:2,tags:['spring','nature','star']},
 
-// 性別
+  // ===== 男の子 追加 =====
+  {kanji:'颯',yomi:'はやて',gender:'boy',moji:1,tags:['cool','nature']},
+  {kanji:'蒼汰',yomi:'そうた',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'朔也',yomi:'さくや',gender:'boy',moji:2,tags:['star','old','cool']},
+  {kanji:'虎太郎',yomi:'こたろう',gender:'boy',moji:3,tags:['cool','old']},
+  {kanji:'龍之介',yomi:'りゅうのすけ',gender:'boy',moji:3,tags:['cool','old']},
+  {kanji:'蓮司',yomi:'れんじ',gender:'boy',moji:2,tags:['spring','nature','old']},
+  {kanji:'湊斗',yomi:'みなと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'碧斗',yomi:'あおと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'煌大',yomi:'こうだい',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'瑛太',yomi:'えいた',gender:'boy',moji:2,tags:['gem','cool']},
+  {kanji:'旭',yomi:'あさひ',gender:'boy',moji:1,tags:['summer','star','happy']},
+  {kanji:'昂',yomi:'こう',gender:'boy',moji:1,tags:['star','cool']},
+  {kanji:'颯真',yomi:'さつま',gender:'boy',moji:2,tags:['cool','nature']},
+  {kanji:'蒼真',yomi:'そうま',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'海翔',yomi:'かいと',gender:'boy',moji:2,tags:['summer','cool','star']},
+  {kanji:'陸斗',yomi:'りくと',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'翼斗',yomi:'つばさと',gender:'boy',moji:2,tags:['cool','star']},
+  {kanji:'幸輝',yomi:'こうき',gender:'boy',moji:2,tags:['happy','star']},
+  {kanji:'大樹',yomi:'だいき',gender:'boy',moji:2,tags:['nature','old']},
+  {kanji:'直樹',yomi:'なおき',gender:'boy',moji:2,tags:['nature','old']},
+  {kanji:'健太',yomi:'けんた',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'雄大',yomi:'ゆうだい',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'勇気',yomi:'ゆうき',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'誠也',yomi:'せいや',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'光希',yomi:'みつき',gender:'boy',moji:2,tags:['star','happy']},
+  {kanji:'朝陽斗',yomi:'あさひと',gender:'boy',moji:3,tags:['summer','star','happy']},
+  {kanji:'蒼空',yomi:'あおぞら',gender:'boy',moji:2,tags:['summer','nature','cool']},
+  {kanji:'渓太',yomi:'けいた',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'滉大',yomi:'こうだい',gender:'boy',moji:2,tags:['summer','nature']},
+  {kanji:'暖太',yomi:'はると',gender:'boy',moji:2,tags:['spring','happy']},
+  {kanji:'陽太',yomi:'ひなた',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'晴斗',yomi:'はると',gender:'boy',moji:2,tags:['spring','happy']},
+  {kanji:'晴真',yomi:'はるま',gender:'boy',moji:2,tags:['spring','happy']},
+  {kanji:'太一',yomi:'たいち',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'奏汰',yomi:'そうた',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'響',yomi:'ひびき',gender:'both',moji:1,tags:['music','cool']},
+  {kanji:'律希',yomi:'りつき',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'仁',yomi:'じん',gender:'boy',moji:1,tags:['old','happy']},
+  {kanji:'俊',yomi:'しゅん',gender:'boy',moji:1,tags:['cool','old']},
+  {kanji:'拓',yomi:'たく',gender:'boy',moji:1,tags:['old','nature']},
+  {kanji:'蒼介',yomi:'そうすけ',gender:'boy',moji:2,tags:['nature','old']},
+  {kanji:'海人',yomi:'かいと',gender:'boy',moji:2,tags:['summer','nature']},
+  {kanji:'空翔',yomi:'そらと',gender:'boy',moji:2,tags:['summer','cool','star']},
+  {kanji:'大河',yomi:'たいが',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'瑞希',yomi:'みずき',gender:'boy',moji:2,tags:['gem','happy']},
+  {kanji:'湧斗',yomi:'ゆうと',gender:'boy',moji:2,tags:['nature','summer']},
+  // ===== 女の子 追加 =====
+  {kanji:'ひまり',yomi:'ひまり',gender:'girl',moji:3,tags:['spring','happy']},
+  {kanji:'凛花',yomi:'りんか',gender:'girl',moji:2,tags:['winter','spring','happy']},
+  {kanji:'翠葉',yomi:'みどりは',gender:'girl',moji:2,tags:['gem','nature','spring']},
+  {kanji:'陽葵',yomi:'ひまり',gender:'girl',moji:2,tags:['spring','summer','happy']},
+  {kanji:'莉央',yomi:'りお',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'莉桜',yomi:'りお',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'結愛',yomi:'ゆあ',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'心愛',yomi:'ここあ',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'咲良',yomi:'さくら',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'花音',yomi:'かのん',gender:'girl',moji:2,tags:['spring','music','happy']},
+  {kanji:'葵衣',yomi:'あおい',gender:'girl',moji:2,tags:['spring','nature','happy']},
+  {kanji:'琴音',yomi:'ことね',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'桜子',yomi:'さくらこ',gender:'girl',moji:2,tags:['spring','happy','old']},
+  {kanji:'美桜',yomi:'みお',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'月花',yomi:'つきか',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'星奈',yomi:'せな',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'光莉',yomi:'ひかり',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'煌花',yomi:'きらか',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'瑠花',yomi:'るか',gender:'girl',moji:2,tags:['gem','spring']},
+  {kanji:'珠莉',yomi:'じゅり',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'琥珀子',yomi:'こはくこ',gender:'girl',moji:3,tags:['gem','autumn','old']},
+  {kanji:'雫花',yomi:'しずか',gender:'girl',moji:2,tags:['nature','spring','gem']},
+  {kanji:'葉月',yomi:'はづき',gender:'girl',moji:2,tags:['autumn','star']},
+  {kanji:'紅葉',yomi:'こうよう',gender:'girl',moji:2,tags:['autumn','nature']},
+  {kanji:'楓花',yomi:'ふうか',gender:'girl',moji:2,tags:['autumn','spring']},
+  {kanji:'茜音',yomi:'あかね',gender:'girl',moji:2,tags:['autumn','music']},
+  {kanji:'柚希',yomi:'ゆずき',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'雪奈',yomi:'ゆきな',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'冬花',yomi:'ふゆか',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'椿花',yomi:'つばきか',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'奏音',yomi:'かのん',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'詩音',yomi:'しおん',gender:'girl',moji:2,tags:['music','autumn']},
+  {kanji:'律子',yomi:'りつこ',gender:'girl',moji:2,tags:['music','old']},
+  {kanji:'響花',yomi:'ひびか',gender:'girl',moji:2,tags:['music','spring']},
+  {kanji:'愛莉',yomi:'あいり',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'幸奈',yomi:'ゆきな',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'恵美',yomi:'えみ',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'和奏',yomi:'わかな',gender:'girl',moji:2,tags:['happy','music']},
+  {kanji:'菫花',yomi:'すみれか',gender:'girl',moji:2,tags:['spring','nature']},
+  {kanji:'藤花',yomi:'ふじか',gender:'girl',moji:2,tags:['spring','nature','old']},
+  {kanji:'蘭子',yomi:'らんこ',gender:'girl',moji:2,tags:['spring','nature','gem','old']},
+  {kanji:'梓月',yomi:'あずさつき',gender:'girl',moji:2,tags:['nature','star','old']},
+  {kanji:'泉',yomi:'いずみ',gender:'girl',moji:1,tags:['nature','summer']},
+  {kanji:'苑',yomi:'その',gender:'girl',moji:1,tags:['nature','spring','old']},
+  {kanji:'夢花',yomi:'ゆめか',gender:'girl',moji:2,tags:['happy','spring','star']},
+  {kanji:'夢奈',yomi:'ゆな',gender:'girl',moji:2,tags:['happy','star']},
+  {kanji:'桃花',yomi:'ももか',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'苺花',yomi:'いちかは',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'美雪',yomi:'みゆき',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'美星',yomi:'みほし',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'美空',yomi:'みそら',gender:'girl',moji:2,tags:['summer','happy']},
+  {kanji:'日向',yomi:'ひなた',gender:'girl',moji:2,tags:['summer','spring','happy']},
+  {kanji:'向日葵',yomi:'ひまわり',gender:'girl',moji:3,tags:['summer','happy','nature']},
+  // ===== 男の子 追加3 =====
+  {kanji:'蓮音',yomi:'れのん',gender:'boy',moji:2,tags:['spring','music']},
+  {kanji:'蓮希',yomi:'れんき',gender:'boy',moji:2,tags:['spring','happy']},
+  {kanji:'蓮斗',yomi:'れんと',gender:'boy',moji:2,tags:['spring','cool']},
+  {kanji:'蓮翔',yomi:'れんと',gender:'boy',moji:2,tags:['spring','star']},
+  {kanji:'湊翔',yomi:'みなと',gender:'boy',moji:2,tags:['summer','star']},
+  {kanji:'湊真',yomi:'みなま',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'湊太',yomi:'みなた',gender:'boy',moji:2,tags:['summer','old']},
+  {kanji:'碧真',yomi:'あおま',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'碧太',yomi:'あおた',gender:'boy',moji:2,tags:['summer','old']},
+  {kanji:'蒼真',yomi:'そうま',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'蒼太',yomi:'そうた',gender:'boy',moji:2,tags:['nature','old']},
+  {kanji:'藍斗',yomi:'らんと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'藍真',yomi:'らんま',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'凪斗',yomi:'なぎと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'凪翔',yomi:'なぎと',gender:'boy',moji:2,tags:['summer','star']},
+  {kanji:'晴太',yomi:'はるた',gender:'boy',moji:2,tags:['spring','old']},
+  {kanji:'晴也',yomi:'はるや',gender:'boy',moji:2,tags:['spring','old']},
+  {kanji:'晴希',yomi:'はるき',gender:'boy',moji:2,tags:['spring','happy']},
+  {kanji:'暖斗',yomi:'はると',gender:'boy',moji:2,tags:['spring','cool']},
+  {kanji:'暖真',yomi:'はるま',gender:'boy',moji:2,tags:['spring','happy']},
+  {kanji:'陽斗',yomi:'はると',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'陽真',yomi:'はるま',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'陽希',yomi:'はるき',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'空斗',yomi:'そらと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'空真',yomi:'そらま',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'海真',yomi:'かいま',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'海太',yomi:'かいた',gender:'boy',moji:2,tags:['summer','old']},
+  {kanji:'海斗',yomi:'かいと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'光太',yomi:'こうた',gender:'boy',moji:2,tags:['star','old']},
+  {kanji:'光真',yomi:'みつま',gender:'boy',moji:2,tags:['star','happy']},
+  {kanji:'光斗',yomi:'みつと',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'星真',yomi:'せいま',gender:'boy',moji:2,tags:['star','happy']},
+  {kanji:'星太',yomi:'せいた',gender:'boy',moji:2,tags:['star','old']},
+  {kanji:'煌斗',yomi:'こうと',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'煌真',yomi:'こうま',gender:'boy',moji:2,tags:['star','happy']},
+  {kanji:'瑛斗',yomi:'えいと',gender:'boy',moji:2,tags:['gem','cool']},
+  {kanji:'瑛真',yomi:'えいま',gender:'boy',moji:2,tags:['gem','happy']},
+  {kanji:'琉真',yomi:'りゅうま',gender:'boy',moji:2,tags:['gem','happy']},
+  {kanji:'琉太',yomi:'りゅうた',gender:'boy',moji:2,tags:['gem','old']},
+  {kanji:'樹斗',yomi:'いつと',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'樹真',yomi:'いつま',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'翼真',yomi:'つばさま',gender:'boy',moji:2,tags:['star','happy']},
+  {kanji:'翼斗',yomi:'つばさと',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'颯斗',yomi:'はやと',gender:'boy',moji:2,tags:['cool','nature']},
+  {kanji:'颯真',yomi:'さつま',gender:'boy',moji:2,tags:['cool','happy']},
+  {kanji:'龍太',yomi:'りゅうた',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'龍真',yomi:'りゅうま',gender:'boy',moji:2,tags:['cool','happy']},
+  {kanji:'奏真',yomi:'そうま',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'奏斗',yomi:'そうと',gender:'boy',moji:2,tags:['music','cool']},
+  {kanji:'奏希',yomi:'そうき',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'律真',yomi:'りつま',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'響真',yomi:'ひびま',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'響太',yomi:'ひびた',gender:'boy',moji:2,tags:['music','old']},
+  {kanji:'幸太',yomi:'こうた',gender:'boy',moji:2,tags:['happy','old']},
+  {kanji:'幸真',yomi:'こうま',gender:'boy',moji:2,tags:['happy','happy']},
+  {kanji:'和斗',yomi:'かずと',gender:'boy',moji:2,tags:['happy','old']},
+  {kanji:'和真',yomi:'かずま',gender:'boy',moji:2,tags:['happy','old']},
+  {kanji:'誠真',yomi:'まさま',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'誠人',yomi:'まさと',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'仁真',yomi:'じんま',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'仁太',yomi:'じんた',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'匠斗',yomi:'たくと',gender:'boy',moji:2,tags:['old','cool']},
+  {kanji:'匠真',yomi:'たくま',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'大斗',yomi:'だいと',gender:'boy',moji:2,tags:['old','cool']},
+  {kanji:'大真',yomi:'だいま',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'健斗',yomi:'けんと',gender:'boy',moji:2,tags:['old','cool']},
+  {kanji:'健真',yomi:'けんま',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'勇斗',yomi:'ゆうと',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'勇太',yomi:'ゆうた',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'雄斗',yomi:'ゆうと',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'雄太',yomi:'ゆうた',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'拓斗',yomi:'たくと',gender:'boy',moji:2,tags:['old','cool']},
+  {kanji:'拓真',yomi:'たくま',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'旭太',yomi:'あさひた',gender:'boy',moji:2,tags:['summer','old']},
+  {kanji:'旭真',yomi:'あさひま',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'嵐斗',yomi:'らんと',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'嵐真',yomi:'らんま',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'渓真',yomi:'けいま',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'湧真',yomi:'ゆうま',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'滉斗',yomi:'こうと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'洸斗',yomi:'こうと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'泰斗',yomi:'たいと',gender:'boy',moji:2,tags:['old','cool']},
+  {kanji:'泰真',yomi:'たいま',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'泰輝',yomi:'たいき',gender:'boy',moji:2,tags:['old','star']},
+  {kanji:'俊斗',yomi:'しゅんと',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'俊太',yomi:'しゅんた',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'昂斗',yomi:'こうと',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'昂真',yomi:'こうま',gender:'boy',moji:2,tags:['star','happy']},
+  {kanji:'瑞斗',yomi:'みずと',gender:'boy',moji:2,tags:['gem','cool']},
+  {kanji:'瑞真',yomi:'みずま',gender:'boy',moji:2,tags:['gem','happy']},
+  {kanji:'幸希',yomi:'こうき',gender:'boy',moji:2,tags:['happy','star']},
+  {kanji:'幸輝',yomi:'こうき',gender:'boy',moji:2,tags:['happy','star']},
+  {kanji:'悠斗',yomi:'ゆうと',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'悠真',yomi:'ゆうま',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'悠希',yomi:'ゆうき',gender:'boy',moji:2,tags:['nature','happy']},
+  {kanji:'悠太',yomi:'ゆうた',gender:'boy',moji:2,tags:['nature','old']},
+  // ===== 女の子 追加3 =====
+  {kanji:'凛奈',yomi:'りな',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'凛希',yomi:'りき',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'凛咲',yomi:'りさ',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'翠奈',yomi:'すいな',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'翠希',yomi:'みどき',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'葵花',yomi:'あおか',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'葵奈',yomi:'あおな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'葵希',yomi:'あおき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'陽奈',yomi:'はるな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'陽希',yomi:'はるき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'陽咲',yomi:'ひさき',gender:'girl',moji:2,tags:['summer','spring']},
+  {kanji:'陽乃',yomi:'ひの',gender:'girl',moji:2,tags:['summer','old']},
+  {kanji:'紬奈',yomi:'つな',gender:'girl',moji:2,tags:['old','happy']},
+  {kanji:'紬希',yomi:'つむき',gender:'girl',moji:2,tags:['old','happy']},
+  {kanji:'紬咲',yomi:'つむさ',gender:'girl',moji:2,tags:['old','spring']},
+  {kanji:'莉咲',yomi:'りさき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'莉希',yomi:'りき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'莉乃',yomi:'りの',gender:'girl',moji:2,tags:['spring','old']},
+  {kanji:'結希',yomi:'ゆき',gender:'girl',moji:2,tags:['happy','star']},
+  {kanji:'結咲',yomi:'ゆさき',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'結乃',yomi:'ゆの',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'心奈',yomi:'ここな',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'心乃',yomi:'ここの',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'心希',yomi:'ここき',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'愛咲',yomi:'あさき',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'愛希',yomi:'あき',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'愛乃',yomi:'あいの',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'桜乃',yomi:'おうの',gender:'girl',moji:2,tags:['spring','old']},
+  {kanji:'桜希',yomi:'さくき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'桜咲',yomi:'さくさ',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'咲希',yomi:'さき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'咲乃',yomi:'さの',gender:'girl',moji:2,tags:['spring','old']},
+  {kanji:'花乃',yomi:'はの',gender:'girl',moji:2,tags:['spring','old']},
+  {kanji:'花希',yomi:'はなき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'月乃',yomi:'つきの',gender:'girl',moji:2,tags:['star','old']},
+  {kanji:'月希',yomi:'つきき',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'月咲',yomi:'つきさ',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'星花',yomi:'せいか',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'星乃',yomi:'ほしの',gender:'girl',moji:2,tags:['star','old']},
+  {kanji:'星希',yomi:'せき',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'光乃',yomi:'みつの',gender:'girl',moji:2,tags:['star','old']},
+  {kanji:'光咲',yomi:'みつさ',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'瑠希',yomi:'るき',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'瑠咲',yomi:'るさき',gender:'girl',moji:2,tags:['gem','spring']},
+  {kanji:'瑠乃',yomi:'るの',gender:'girl',moji:2,tags:['gem','old']},
+  {kanji:'璃奈',yomi:'りな',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'璃希',yomi:'りき',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'璃乃',yomi:'りの',gender:'girl',moji:2,tags:['gem','old']},
+  {kanji:'珠乃',yomi:'たまの',gender:'girl',moji:2,tags:['gem','old']},
+  {kanji:'珠咲',yomi:'たまさ',gender:'girl',moji:2,tags:['gem','spring']},
+  {kanji:'珠希',yomi:'たまき',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'雫奈',yomi:'しずな',gender:'girl',moji:2,tags:['nature','happy']},
+  {kanji:'雫希',yomi:'しずき',gender:'girl',moji:2,tags:['nature','happy']},
+  {kanji:'雫乃',yomi:'しずの',gender:'girl',moji:2,tags:['nature','old']},
+  {kanji:'澪奈',yomi:'みおな',gender:'girl',moji:2,tags:['summer','happy']},
+  {kanji:'澪希',yomi:'みおき',gender:'girl',moji:2,tags:['summer','happy']},
+  {kanji:'澪乃',yomi:'みおの',gender:'girl',moji:2,tags:['summer','old']},
+  {kanji:'渚奈',yomi:'なぎな',gender:'girl',moji:2,tags:['summer','happy']},
+  {kanji:'渚希',yomi:'なぎき',gender:'girl',moji:2,tags:['summer','happy']},
+  {kanji:'楓奈',yomi:'ふうな',gender:'girl',moji:2,tags:['autumn','happy']},
+  {kanji:'楓希',yomi:'ふうき',gender:'girl',moji:2,tags:['autumn','happy']},
+  {kanji:'楓乃',yomi:'かえの',gender:'girl',moji:2,tags:['autumn','old']},
+  {kanji:'茜奈',yomi:'あかな',gender:'girl',moji:2,tags:['autumn','happy']},
+  {kanji:'茜希',yomi:'あかき',gender:'girl',moji:2,tags:['autumn','happy']},
+  {kanji:'茜乃',yomi:'あかの',gender:'girl',moji:2,tags:['autumn','old']},
+  {kanji:'椿奈',yomi:'つばな',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'椿希',yomi:'つばき',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'椿乃',yomi:'つばの',gender:'girl',moji:2,tags:['winter','old']},
+  {kanji:'柚奈',yomi:'ゆずな',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'柚乃',yomi:'ゆずの',gender:'girl',moji:2,tags:['winter','old']},
+  {kanji:'柚咲',yomi:'ゆずさ',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'雪奈',yomi:'ゆきな',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'雪乃',yomi:'ゆきの',gender:'girl',moji:2,tags:['winter','old']},
+  {kanji:'雪希',yomi:'ゆきき',gender:'girl',moji:2,tags:['winter','happy']},
+  {kanji:'奏咲',yomi:'かなさき',gender:'girl',moji:2,tags:['music','spring']},
+  {kanji:'奏希',yomi:'かなき',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'奏乃',yomi:'かのの',gender:'girl',moji:2,tags:['music','old']},
+  {kanji:'琴咲',yomi:'ことさき',gender:'girl',moji:2,tags:['music','spring']},
+  {kanji:'琴乃',yomi:'ことの',gender:'girl',moji:2,tags:['music','old']},
+  {kanji:'琴希',yomi:'ことき',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'詩咲',yomi:'しさき',gender:'girl',moji:2,tags:['music','spring']},
+  {kanji:'詩希',yomi:'しき',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'詩乃',yomi:'しの',gender:'girl',moji:2,tags:['music','old']},
+  {kanji:'幸咲',yomi:'さちさき',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'幸乃',yomi:'さちの',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'幸希',yomi:'さちき',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'恵奈',yomi:'えな',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'恵乃',yomi:'えの',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'恵希',yomi:'めき',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'夢咲',yomi:'ゆめさき',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'夢乃',yomi:'ゆめの',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'夢希',yomi:'ゆき',gender:'girl',moji:2,tags:['happy','star']},
+  {kanji:'萌奈',yomi:'もえな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'萌咲',yomi:'もえさ',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'萌乃',yomi:'もえの',gender:'girl',moji:2,tags:['spring','old']},
+  {kanji:'彩咲',yomi:'いろさ',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'彩乃',yomi:'あやの',gender:'girl',moji:2,tags:['happy','old']},
+  {kanji:'彩希',yomi:'あやき',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'桃乃',yomi:'ももの',gender:'girl',moji:2,tags:['spring','old']},
+  {kanji:'桃希',yomi:'ももき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'桃咲',yomi:'もさき',gender:'girl',moji:2,tags:['spring','happy']},
+
+  // ===== 男の子 追加2 =====
+  {kanji:'碧人',yomi:'あおと',gender:'boy',moji:2,tags:['summer','cool','nature']},
+  {kanji:'蒼人',yomi:'あおと',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'蒼士',yomi:'あおし',gender:'boy',moji:2,tags:['nature','cool','old']},
+  {kanji:'湊人',yomi:'みなと',gender:'boy',moji:2,tags:['summer','nature']},
+  {kanji:'蓮人',yomi:'れんと',gender:'boy',moji:2,tags:['spring','nature']},
+  {kanji:'翔太',yomi:'しょうた',gender:'boy',moji:2,tags:['cool','star']},
+  {kanji:'翔平',yomi:'しょうへい',gender:'boy',moji:2,tags:['cool','star']},
+  {kanji:'颯介',yomi:'そうすけ',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'颯人',yomi:'はやと',gender:'boy',moji:2,tags:['cool','nature']},
+  {kanji:'朔太郎',yomi:'さくたろう',gender:'boy',moji:3,tags:['star','old']},
+  {kanji:'海斗',yomi:'かいと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'海人',yomi:'かいと',gender:'boy',moji:2,tags:['summer','nature']},
+  {kanji:'海翔',yomi:'かいしょう',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'陸翔',yomi:'りくと',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'空翔',yomi:'そらと',gender:'boy',moji:2,tags:['summer','cool']},
+  {kanji:'晴翔',yomi:'はると',gender:'boy',moji:2,tags:['spring','cool']},
+  {kanji:'暖翔',yomi:'はると',gender:'boy',moji:2,tags:['spring','happy']},
+  {kanji:'光翔',yomi:'こうしょう',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'煌翔',yomi:'こうしょう',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'瑛翔',yomi:'えいと',gender:'boy',moji:2,tags:['gem','cool']},
+  {kanji:'龍翔',yomi:'りゅうと',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'龍斗',yomi:'りゅうと',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'龍馬',yomi:'りゅうま',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'虎太',yomi:'こうた',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'虎之助',yomi:'とらのすけ',gender:'boy',moji:3,tags:['cool','old']},
+  {kanji:'嵐斗',yomi:'らんと',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'奏斗',yomi:'かなと',gender:'boy',moji:2,tags:['music','cool']},
+  {kanji:'奏汰',yomi:'かなた',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'奏真',yomi:'かなま',gender:'boy',moji:2,tags:['music','happy']},
+  {kanji:'律斗',yomi:'りつと',gender:'boy',moji:2,tags:['music','cool']},
+  {kanji:'響斗',yomi:'ひびと',gender:'boy',moji:2,tags:['music','cool']},
+  {kanji:'詩温',yomi:'しおん',gender:'boy',moji:2,tags:['music','old']},
+  {kanji:'仁斗',yomi:'じんと',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'仁志',yomi:'ひとし',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'誠斗',yomi:'まこと',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'匠海',yomi:'たくみ',gender:'boy',moji:2,tags:['old','summer']},
+  {kanji:'匠真',yomi:'たくま',gender:'boy',moji:2,tags:['old','cool']},
+  {kanji:'拓海',yomi:'たくみ',gender:'boy',moji:2,tags:['old','summer']},
+  {kanji:'拓真',yomi:'たくま',gender:'boy',moji:2,tags:['old','cool']},
+  {kanji:'大輝',yomi:'だいき',gender:'boy',moji:2,tags:['star','old']},
+  {kanji:'大翔',yomi:'やまと',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'大和',yomi:'やまと',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'健斗',yomi:'けんと',gender:'boy',moji:2,tags:['old','happy']},
+  {kanji:'健太郎',yomi:'けんたろう',gender:'boy',moji:3,tags:['old','happy']},
+  {kanji:'勇斗',yomi:'はやと',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'勇真',yomi:'ゆうま',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'雄斗',yomi:'ゆうと',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'雄真',yomi:'ゆうま',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'洸太',yomi:'こうた',gender:'boy',moji:2,tags:['summer','star']},
+  {kanji:'滉太',yomi:'こうた',gender:'boy',moji:2,tags:['summer','nature']},
+  {kanji:'渓斗',yomi:'けいと',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'湧太',yomi:'ゆうた',gender:'boy',moji:2,tags:['nature','summer']},
+  {kanji:'旭斗',yomi:'あさひと',gender:'boy',moji:2,tags:['summer','star']},
+  {kanji:'昂輝',yomi:'こうき',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'煌太',yomi:'こうた',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'瑛太郎',yomi:'えいたろう',gender:'boy',moji:3,tags:['gem','old']},
+  {kanji:'瑞希',yomi:'みずき',gender:'boy',moji:2,tags:['gem','happy']},
+  {kanji:'琉斗',yomi:'りゅうと',gender:'boy',moji:2,tags:['gem','cool']},
+  {kanji:'一颯',yomi:'いっさ',gender:'boy',moji:2,tags:['cool','old']},
+  {kanji:'二郎',yomi:'じろう',gender:'boy',moji:2,tags:['old']},
+  {kanji:'一郎',yomi:'いちろう',gender:'boy',moji:2,tags:['old']},
+  {kanji:'三郎',yomi:'さぶろう',gender:'boy',moji:2,tags:['old']},
+  {kanji:'蒼龍',yomi:'そうりゅう',gender:'boy',moji:2,tags:['nature','cool']},
+  {kanji:'蒼輝',yomi:'あおき',gender:'boy',moji:2,tags:['nature','star']},
+  {kanji:'碧輝',yomi:'あおき',gender:'boy',moji:2,tags:['summer','star']},
+  {kanji:'蓮司',yomi:'れんじ',gender:'boy',moji:2,tags:['spring','old']},
+  {kanji:'蓮太',yomi:'れんた',gender:'boy',moji:2,tags:['spring','nature']},
+  {kanji:'湊希',yomi:'みなき',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'空人',yomi:'そらと',gender:'boy',moji:2,tags:['summer','nature']},
+  {kanji:'晴人',yomi:'はると',gender:'boy',moji:2,tags:['spring','happy']},
+  {kanji:'陽人',yomi:'はると',gender:'boy',moji:2,tags:['summer','happy']},
+  {kanji:'光人',yomi:'みつと',gender:'boy',moji:2,tags:['star','happy']},
+  {kanji:'星斗',yomi:'せいと',gender:'boy',moji:2,tags:['star','cool']},
+  {kanji:'星空',yomi:'せいくう',gender:'boy',moji:2,tags:['star','summer']},
+  {kanji:'樹生',yomi:'いつき',gender:'boy',moji:2,tags:['nature','spring']},
+  {kanji:'森太',yomi:'もりた',gender:'boy',moji:2,tags:['nature','old']},
+  {kanji:'幸輝',yomi:'こうき',gender:'boy',moji:2,tags:['happy','star']},
+  {kanji:'幸斗',yomi:'こうと',gender:'boy',moji:2,tags:['happy','cool']},
+  // ===== 女の子 追加2 =====
+  {kanji:'凛花',yomi:'りんか',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'凛音',yomi:'りのん',gender:'girl',moji:2,tags:['winter','music']},
+  {kanji:'凛咲',yomi:'りさ',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'翠花',yomi:'すいか',gender:'girl',moji:2,tags:['gem','spring']},
+  {kanji:'翠音',yomi:'みのん',gender:'girl',moji:2,tags:['gem','music']},
+  {kanji:'葵音',yomi:'あおね',gender:'girl',moji:2,tags:['spring','music']},
+  {kanji:'葵咲',yomi:'あおさ',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'陽咲',yomi:'ひさき',gender:'girl',moji:2,tags:['summer','spring']},
+  {kanji:'陽花',yomi:'はるか',gender:'girl',moji:2,tags:['spring','summer']},
+  {kanji:'陽音',yomi:'はのん',gender:'girl',moji:2,tags:['summer','music']},
+  {kanji:'陽奈',yomi:'はるな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'紬音',yomi:'つむぎ',gender:'girl',moji:2,tags:['old','music']},
+  {kanji:'紬花',yomi:'つむか',gender:'girl',moji:2,tags:['old','spring']},
+  {kanji:'莉花',yomi:'りか',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'莉音',yomi:'りのん',gender:'girl',moji:2,tags:['spring','music']},
+  {kanji:'莉奈',yomi:'りな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'結花',yomi:'ゆいか',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'結音',yomi:'ゆいね',gender:'girl',moji:2,tags:['happy','music']},
+  {kanji:'結奈',yomi:'ゆな',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'心花',yomi:'ここか',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'心音',yomi:'ここね',gender:'girl',moji:2,tags:['happy','music']},
+  {kanji:'心咲',yomi:'ここさ',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'愛花',yomi:'あいか',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'愛音',yomi:'あのん',gender:'girl',moji:2,tags:['happy','music']},
+  {kanji:'愛奈',yomi:'あいな',gender:'girl',moji:2,tags:['happy']},
+  {kanji:'桜音',yomi:'おとね',gender:'girl',moji:2,tags:['spring','music']},
+  {kanji:'桜花',yomi:'おうか',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'桜奈',yomi:'さくな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'咲花',yomi:'さきか',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'咲音',yomi:'さのん',gender:'girl',moji:2,tags:['spring','music']},
+  {kanji:'咲奈',yomi:'さくな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'花音',yomi:'かのん',gender:'girl',moji:2,tags:['spring','music']},
+  {kanji:'花奈',yomi:'はな',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'花咲',yomi:'はなさき',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'月音',yomi:'つきね',gender:'girl',moji:2,tags:['star','music']},
+  {kanji:'月花',yomi:'つきか',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'月奈',yomi:'つきな',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'星花',yomi:'せいか',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'星奈',yomi:'せな',gender:'girl',moji:2,tags:['star','happy']},
+  {kanji:'光花',yomi:'みつか',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'光音',yomi:'みつね',gender:'girl',moji:2,tags:['star','music']},
+  {kanji:'煌花',yomi:'きらか',gender:'girl',moji:2,tags:['star','spring']},
+  {kanji:'煌音',yomi:'きらね',gender:'girl',moji:2,tags:['star','music']},
+  {kanji:'瑠花',yomi:'るか',gender:'girl',moji:2,tags:['gem','spring']},
+  {kanji:'瑠音',yomi:'るのん',gender:'girl',moji:2,tags:['gem','music']},
+  {kanji:'瑠奈',yomi:'るな',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'璃花',yomi:'りか',gender:'girl',moji:2,tags:['gem','spring']},
+  {kanji:'璃音',yomi:'りのん',gender:'girl',moji:2,tags:['gem','music']},
+  {kanji:'珠花',yomi:'たまか',gender:'girl',moji:2,tags:['gem','spring']},
+  {kanji:'珠音',yomi:'たまね',gender:'girl',moji:2,tags:['gem','music']},
+  {kanji:'珠奈',yomi:'たまな',gender:'girl',moji:2,tags:['gem','happy']},
+  {kanji:'琥珀',yomi:'こはく',gender:'girl',moji:2,tags:['gem','autumn']},
+  {kanji:'雫音',yomi:'しずね',gender:'girl',moji:2,tags:['nature','music']},
+  {kanji:'雫花',yomi:'しずか',gender:'girl',moji:2,tags:['nature','spring']},
+  {kanji:'澪花',yomi:'みおか',gender:'girl',moji:2,tags:['summer','spring']},
+  {kanji:'澪音',yomi:'みおね',gender:'girl',moji:2,tags:['summer','music']},
+  {kanji:'渚花',yomi:'なぎか',gender:'girl',moji:2,tags:['summer','spring']},
+  {kanji:'楓花',yomi:'ふうか',gender:'girl',moji:2,tags:['autumn','spring']},
+  {kanji:'楓音',yomi:'ふうね',gender:'girl',moji:2,tags:['autumn','music']},
+  {kanji:'茜花',yomi:'あかか',gender:'girl',moji:2,tags:['autumn','spring']},
+  {kanji:'紅葉',yomi:'もみじ',gender:'girl',moji:2,tags:['autumn','nature']},
+  {kanji:'椿花',yomi:'つばきか',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'柚花',yomi:'ゆずか',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'柚音',yomi:'ゆずね',gender:'girl',moji:2,tags:['winter','music']},
+  {kanji:'雪花',yomi:'ゆきか',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'雪音',yomi:'ゆきね',gender:'girl',moji:2,tags:['winter','music']},
+  {kanji:'冬花',yomi:'ふゆか',gender:'girl',moji:2,tags:['winter','spring']},
+  {kanji:'冬音',yomi:'ふゆね',gender:'girl',moji:2,tags:['winter','music']},
+  {kanji:'奏花',yomi:'かなか',gender:'girl',moji:2,tags:['music','spring']},
+  {kanji:'奏音',yomi:'かのん',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'奏奈',yomi:'かな',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'琴花',yomi:'ことか',gender:'girl',moji:2,tags:['music','spring']},
+  {kanji:'琴奈',yomi:'ことな',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'詩花',yomi:'しか',gender:'girl',moji:2,tags:['music','spring']},
+  {kanji:'詩音',yomi:'しのん',gender:'girl',moji:2,tags:['music','old']},
+  {kanji:'詩奈',yomi:'しな',gender:'girl',moji:2,tags:['music','happy']},
+  {kanji:'響花',yomi:'ひびか',gender:'girl',moji:2,tags:['music','spring']},
+  {kanji:'幸花',yomi:'さちか',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'幸音',yomi:'さちね',gender:'girl',moji:2,tags:['happy','music']},
+  {kanji:'恵花',yomi:'めぐか',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'希花',yomi:'きか',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'夢花',yomi:'ゆめか',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'夢音',yomi:'ゆのん',gender:'girl',moji:2,tags:['happy','music']},
+  {kanji:'萌花',yomi:'もえか',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'菫花',yomi:'すみれか',gender:'girl',moji:2,tags:['spring','nature']},
+  {kanji:'蘭花',yomi:'らんか',gender:'girl',moji:2,tags:['spring','nature']},
+  {kanji:'藤花',yomi:'ふじか',gender:'girl',moji:2,tags:['spring','nature','old']},
+  {kanji:'梓花',yomi:'あずさか',gender:'girl',moji:2,tags:['nature','spring','old']},
+  {kanji:'紗花',yomi:'さやか',gender:'girl',moji:2,tags:['old','spring']},
+  {kanji:'紗音',yomi:'さのん',gender:'girl',moji:2,tags:['old','music']},
+  {kanji:'紗奈',yomi:'さな',gender:'girl',moji:2,tags:['old','happy']},
+  {kanji:'彩花',yomi:'いろか',gender:'girl',moji:2,tags:['happy','spring']},
+  {kanji:'彩音',yomi:'あやね',gender:'girl',moji:2,tags:['happy','music']},
+  {kanji:'彩奈',yomi:'あやな',gender:'girl',moji:2,tags:['happy','nature']},
+  {kanji:'桃音',yomi:'もとね',gender:'girl',moji:2,tags:['spring','music']},
+  {kanji:'桃花',yomi:'ももか',gender:'girl',moji:2,tags:['spring','happy']},
+  {kanji:'桃奈',yomi:'ももな',gender:'girl',moji:2,tags:['spring','happy']},
+
+  // ===== 両性 =====
+  {kanji:'蒼葉',yomi:'あおば',gender:'both',moji:2,tags:['nature','summer','spring']},
+  {kanji:'光希',yomi:'みつき',gender:'both',moji:2,tags:['star','happy']},
+  {kanji:'陽',yomi:'はる',gender:'both',moji:1,tags:['spring','summer','happy']},
+  {kanji:'煌',yomi:'きら',gender:'both',moji:1,tags:['star','gem','cool']},
+  {kanji:'渚',yomi:'なぎさ',gender:'both',moji:1,tags:['summer','nature']},
+  {kanji:'帆',yomi:'ほ',gender:'both',moji:1,tags:['summer','nature','old']},
+  {kanji:'凪沙',yomi:'なぎさ',gender:'both',moji:2,tags:['summer','nature']},
+  {kanji:'紬希',yomi:'つむぎ',gender:'both',moji:2,tags:['old','music','happy']},
+];
+
+// ===== 漢字パーツデータベース =====
+var PARTS = {
+  boy: {
+    gem:    [{k:'瑛',y:'えいと'},{k:'碧',y:'あお'},{k:'珀',y:'はくと'},{k:'琉',y:'りゅう'},{k:'玲',y:'れいや'}],
+    spring: [{k:'春',y:'はる'},{k:'桜',y:'おう'},{k:'花',y:'か'},{k:'咲',y:'さく'},{k:'芽',y:'め'}],
+    summer: [{k:'海',y:'うみ'},{k:'空',y:'そら'},{k:'蒼',y:'そう'},{k:'凪',y:'なぎ'},{k:'湊',y:'みなと'}],
+    autumn: [{k:'楓',y:'ふう'},{k:'翠',y:'すい'},{k:'彩',y:'あや'},{k:'秋',y:'あき'},{k:'紅',y:'こう'}],
+    winter: [{k:'冬',y:'ふゆ'},{k:'雪',y:'せつ'},{k:'凜',y:'りん'},{k:'柊',y:'しゅう'},{k:'霜',y:'そう'}],
+    star:   [{k:'光',y:'こう'},{k:'星',y:'せい'},{k:'輝',y:'き'},{k:'煌',y:'こう'},{k:'翔',y:'しょう'}],
+    old:    [{k:'匠',y:'たく'},{k:'仁',y:'じん'},{k:'武',y:'たけ'},{k:'誠',y:'まこ'},{k:'龍',y:'りゅう'}],
+    nature: [{k:'森',y:'もり'},{k:'樹',y:'いつ'},{k:'嵐',y:'らん'},{k:'雄',y:'ゆう'},{k:'大',y:'だい'}],
+    music:  [{k:'奏',y:'そう'},{k:'律',y:'りつ'},{k:'響',y:'きょう'},{k:'音',y:'おん'},{k:'詩',y:'し'}],
+    happy:  [{k:'幸',y:'こう'},{k:'喜',y:'き'},{k:'恵',y:'けい'},{k:'和',y:'かず'},{k:'吉',y:'きち'}],
+    cool:   [{k:'颯',y:'さつ'},{k:'豪',y:'ごう'},{k:'剛',y:'ごう'},{k:'翼',y:'よく'},{k:'勇',y:'ゆう'}],
+  },
+  girl: {
+    gem:    [{k:'瑠',y:'るり'},{k:'珠',y:'たまき'},{k:'琥',y:'こはく'},{k:'璃',y:'りの'},{k:'蘭',y:'らん'}],
+    spring: [{k:'桜',y:'おう'},{k:'花',y:'か'},{k:'咲',y:'さき'},{k:'萌',y:'もえ'},{k:'茉',y:'ま'}],
+    summer: [{k:'夏',y:'なつ'},{k:'凪',y:'なぎ'},{k:'澪',y:'みお'},{k:'汐',y:'しお'},{k:'渚',y:'なぎ'}],
+    autumn: [{k:'楓',y:'かえ'},{k:'紅',y:'こう'},{k:'茜',y:'あか'},{k:'紫',y:'むら'},{k:'菊',y:'きく'}],
+    winter: [{k:'雪',y:'ゆき'},{k:'凛',y:'りん'},{k:'椿',y:'つば'},{k:'柚',y:'ゆず'},{k:'霞',y:'かすみ'}],
+    star:   [{k:'星',y:'ほし'},{k:'月',y:'つき'},{k:'光',y:'ひかり'},{k:'煌',y:'きら'},{k:'輝',y:'かがやき'}],
+    old:    [{k:'紬',y:'つむ'},{k:'梓',y:'あず'},{k:'葵',y:'あお'},{k:'詩',y:'うた'},{k:'雫',y:'しず'}],
+    nature: [{k:'葉',y:'は'},{k:'森',y:'もり'},{k:'泉',y:'いずみ'},{k:'苑',y:'その'},{k:'緑',y:'みど'}],
+    music:  [{k:'奏',y:'かな'},{k:'琴',y:'こと'},{k:'詩',y:'うた'},{k:'律',y:'りつ'},{k:'響',y:'ひびき'}],
+    happy:  [{k:'愛',y:'あい'},{k:'幸',y:'さち'},{k:'希',y:'のぞ'},{k:'心',y:'こ'},{k:'恵',y:'めぐ'}],
+    cool:   [{k:'凜',y:'りん'},{k:'翠',y:'すい'},{k:'碧',y:'あお'},{k:'藍',y:'あい'},{k:'蒼',y:'そう'}],
+  }
+};
+
+var SUFFIXES = {
+  boy:  [{k:'斗',y:'と'},{k:'翔',y:'と'},{k:'太',y:'た'},{k:'大',y:'た'},{k:'真',y:'ま'},{k:'樹',y:'き'},{k:'輝',y:'き'},{k:'成',y:'なり'},{k:'哉',y:'や'},{k:'朗',y:'ろう'}],
+  girl: [{k:'菜',y:'な'},{k:'花',y:'か'},{k:'葉',y:'は'},{k:'音',y:'ね'},{k:'子',y:'こ'},{k:'美',y:'み'},{k:'希',y:'き'},{k:'衣',y:'い'},{k:'莉',y:'り'},{k:'奈',y:'な'},{k:'桜',y:'さくら'},{k:'華',y:'か'},{k:'凛',y:'りん'},{k:'愛',y:'あい'},{k:'心',y:'こころ'}],
+};
+
+var selectedGender = 'boy';
+var selectedMoji = 0;
+var selectedGenres = ['all'];
+var kanjiWish = '';
+
 window.selectGender = function(el){
   document.querySelectorAll('.gender-btn').forEach(function(b){b.classList.remove('on');});
   el.classList.add('on');
   selectedGender = el.dataset.val;
 };
 
-// 字数（単一）
 document.querySelectorAll('#mojiGroup .chip').forEach(function(chip){
   chip.addEventListener('click', function(){
     document.querySelectorAll('#mojiGroup .chip').forEach(function(c){c.classList.remove('on');});
     this.classList.add('on');
-    selectedMoji = this.dataset.val;
+    selectedMoji = parseInt(this.dataset.val);
   });
 });
 
-// 雰囲気（複数）
-document.querySelectorAll('#vibeGroup .chip').forEach(function(chip){
-  chip.addEventListener('click', function(){
-    this.classList.toggle('on');
-    var val = this.dataset.val;
-    var idx = selectedVibes.indexOf(val);
-    if(idx !== -1) selectedVibes.splice(idx,1);
-    else selectedVibes.push(val);
-  });
-});
-
-// ジャンル（複数）
 document.querySelectorAll('#genreGroup .genre-card').forEach(function(card){
   card.addEventListener('click', function(){
-    this.classList.toggle('on');
     var val = this.dataset.val;
-    var idx = selectedGenres.indexOf(val);
-    if(idx !== -1) selectedGenres.splice(idx,1);
-    else selectedGenres.push(val);
+    if(val === 'all'){
+      selectedGenres = ['all'];
+      document.querySelectorAll('#genreGroup .genre-card').forEach(function(c){c.classList.remove('on');});
+      this.classList.add('on');
+    } else {
+      var allCard = document.querySelector('#genreGroup .genre-card[data-val="all"]');
+      allCard.classList.remove('on');
+      selectedGenres = selectedGenres.filter(function(v){return v !== 'all';});
+      if(this.classList.contains('on')){
+        this.classList.remove('on');
+        selectedGenres = selectedGenres.filter(function(v){return v !== val;});
+        if(selectedGenres.length === 0){selectedGenres=['all']; allCard.classList.add('on');}
+      } else {
+        this.classList.add('on');
+        selectedGenres.push(val);
+      }
+    }
   });
 });
 
-// 生成
-window.generate = async function(){
-  var btn = document.getElementById('genBtn');
-  var loading = document.getElementById('loading');
-  var resultArea = document.getElementById('resultArea');
-  var errorMsg = document.getElementById('errorMsg');
-  var lastName = document.getElementById('lastNameInput').value.trim();
-  var kanjiWish = document.getElementById('kanjiInput').value.trim();
-  var wish = document.getElementById('wishInput').value.trim();
-
-  btn.disabled = true;
-  loading.classList.add('show');
-  resultArea.innerHTML = '';
-  errorMsg.classList.remove('show');
-
-  var prompt = '日本の赤ちゃんの名前を8個提案してください。\n\n';
-  prompt += '【条件】\n';
-  prompt += '性別：' + selectedGender + '\n';
-  prompt += '字数：' + selectedMoji + '\n';
-  if(selectedVibes.length > 0) prompt += '雰囲気：' + selectedVibes.join('・') + '\n';
-  if(selectedGenres.length > 0) prompt += 'テーマ・ジャンル：' + selectedGenres.join('・') + '\n';
-  if(lastName) prompt += '姓：' + lastName + '（この姓との画数相性も考慮してください）\n';
-  if(kanjiWish) prompt += '必ず含めたい漢字：' + kanjiWish + '（この漢字を1文字以上含む名前を提案してください）\n';
-  if(wish) prompt += '親の願い：' + wish + '\n';
-  // 人気の読みリスト
-var popularYomiBoy = 'はると・みなと・そうた・りく・はな・ゆいと・あお・れん・なぎ・こうた・しょう・かいと・ゆうと・けんと・あおい・らん・あさひ・はる・ゆうき・たくみ・いつき・けい・りょう・まなと・こうき・さくと・つばさ・だいき・かいと・たいよう・しんじ・りょうた・はるき・そうま・のぞむ・まさき・なおき・ひろと・あつき・とうま・そら・ひびき・かなた・いさみ・つばき・きよと・さとる・たくと・ゆうた・けんじ';
-var popularYomiGirl = 'ひまり・りん・えな・めい・ほのか・さくら・あかり・ゆい・あお・みお・ひな・こはる・のあ・さな・なな・みう・すい・あんな・ゆな・せな・あいな・なつき・ここな・ことね・みなみ・るな・あおい・ひなた・ゆきな・みく・ちはる・なごみ・しの・ことは・ゆいな・まなか・あやか・もも・あやね・いちか・れいな・ひより・なつめ・あやの・かえで・まほ・ゆきの・みさき・かりん・なずな';
-var popularYomiBoth = 'あおい・ひなた・なぎ・はる・そら・みなと・れん・りく・いつき・かえで・なつき・ゆき・ひびき・つばさ・あかり・こはる・みどり・あんな・ことは・ちはる';
-
-prompt += '\n【重要：読みの制約】\n';
-if(selectedGender === '男の子'){
-  prompt += '読みは以下の人気の読みリストを参考に、現代の日本で実際に使われている自然な読み方にすること。奇抜な読み方は避ける。\n参考読みリスト（男の子）：' + popularYomiBoy + '\n';
-} else if(selectedGender === '女の子'){
-  prompt += '読みは以下の人気の読みリストを参考に、現代の日本で実際に使われている自然な読み方にすること。奇抜な読み方は避ける。\n参考読みリスト（女の子）：' + popularYomiGirl + '\n';
-} else {
-  prompt += '読みは以下の人気の読みリストを参考に、現代の日本で実際に使われている自然な読み方にすること。奇抜な読み方は避ける。\n参考読みリスト：' + popularYomiBoth + '\n';
+function shuffle(arr){
+  var a = arr.slice();
+  for(var i=a.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=a[i];a[i]=a[j];a[j]=t;
+  }
+  return a;
 }
-prompt += '※リストと全く同じでなくていいが、同じくらい自然な読み方で提案すること。\n';
 
-prompt += '\n以下のJSON形式のみで返してください。他の文字・説明・マークダウンは一切不要です。\n';
-  prompt += '[\n';
-  prompt += '  {\n';
-  prompt += '    "kanji": "漢字表記",\n';
-  prompt += '    "yomi": "ひらがな読み",\n';
-  prompt += '    "strokes": "名前の総画数（数字のみ）",\n';
-  prompt += '    "meaning": "漢字の意味・由来（40字以内）",\n';
-  prompt += '    "tags": ["タグ1","タグ2"],\n';
-  prompt += '    "point": "この名前のおすすめポイント（30字以内）"\n';
-  prompt += '  }\n';
-  prompt += ']';
+function matchesFilters(name){
+  var genderOk = selectedGender === 'both' || name.gender === selectedGender || name.gender === 'both';
+  var mojiOk = selectedMoji === 0 || name.moji === selectedMoji;
+  var genreOk = selectedGenres.indexOf('all') !== -1 || name.tags.some(function(t){ return selectedGenres.indexOf(t) !== -1; });
+  return genderOk && mojiOk && genreOk;
+}
 
-  try {
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 2000,
-        messages: [{role: 'user', content: prompt}]
-      })
+// 人気の読みリスト（男の子・女の子）
+var POPULAR_YOMI_BOY = [
+  'はると','みなと','そうた','りく','ゆいと','あお','れん','なぎ','こうた','しょう',
+  'かいと','ゆうと','けんと','あおい','らん','あさひ','はる','ゆうき','たくみ','いつき',
+  'けい','りょう','まなと','こうき','さくと','つばさ','だいき','たいよう','りょうた',
+  'はるき','そうま','なおき','ひろと','あつき','とうま','そら','ひびき','かなた',
+  'つばき','きよと','たくと','ゆうた','けんじ','しゅん','はやと','ゆうせい','こうへい',
+  'りょうすけ','たいが','いさむ','まさき','のぞむ','さとる','じん','たける','そうすけ',
+];
+var POPULAR_YOMI_GIRL = [
+  'ひまり','りん','えな','めい','ほのか','さくら','あかり','ゆい','あお','みお',
+  'ひな','こはる','のあ','さな','なな','みう','すい','あんな','ゆな','せな',
+  'あいな','なつき','ここな','ことね','みなみ','るな','あおい','ひなた','ゆきな','みく',
+  'ちはる','なごみ','しの','ことは','ゆいな','まなか','あやか','もも','あやね','いちか',
+  'れいな','ひより','なつめ','かえで','まほ','ゆきの','みさき','かりん','なずな','りの',
+  'ふうか','ももか','さつき','みはる','このは','はなえ','しずく','のどか','ひかり','きらら',
+];
+
+function generateFromParts(){
+  var gKey = selectedGender === 'both' ? (Math.random() < 0.5 ? 'boy' : 'girl') : selectedGender;
+  var parts = PARTS[gKey] || PARTS['boy'];
+  var yomiList = gKey === 'girl' ? POPULAR_YOMI_GIRL : POPULAR_YOMI_BOY;
+  var results = [];
+  var genreKeys = Object.keys(parts);
+  var genres = selectedGenres.indexOf('all') !== -1 ? genreKeys : selectedGenres.filter(function(g){ return parts[g]; });
+  if(genres.length === 0) genres = genreKeys;
+
+  for(var i=0;i<6;i++){
+    var genre = genres[Math.floor(Math.random()*genres.length)];
+    var pool = parts[genre] || parts[genreKeys[0]];
+    var head = pool[Math.floor(Math.random()*pool.length)];
+    var moji = selectedMoji === 0 ? (Math.random() < 0.2 ? 1 : 2) : selectedMoji;
+
+    // 読みは人気リストからランダムに選ぶ
+    var yomi = yomiList[Math.floor(Math.random()*yomiList.length)];
+
+    if(moji === 1){
+      results.push({kanji:head.k, yomi:yomi.slice(0, yomi.length <= 2 ? yomi.length : 2), generated:true, tags:[genre]});
+    } else {
+      var suf = SUFFIXES[gKey][Math.floor(Math.random()*SUFFIXES[gKey].length)];
+      results.push({kanji:head.k+suf.k, yomi:yomi, generated:true, tags:[genre]});
+    }
+  }
+  return results;
+}
+
+function generate(){
+  var kanjiWish = document.getElementById('kanjiInput').value.trim();
+  var area = document.getElementById('resultArea');
+
+  var filtered = NAMES.filter(matchesFilters);
+
+  // 使いたい漢字があれば優先
+  var prioritized = [];
+  if(kanjiWish){
+    var wishes = kanjiWish.split(/[,、,\s]+/).map(function(k){return k.trim();}).filter(Boolean);
+    prioritized = filtered.filter(function(n){
+      return wishes.some(function(k){ return n.kanji.indexOf(k) !== -1; });
     });
-    var data = await res.json();
-    var text = data.content.map(function(c){return c.text||'';}).join('');
-    var clean = text.replace(/```json|```/g,'').trim();
-    var names = JSON.parse(clean);
-    renderResults(names, lastName);
-  } catch(e) {
-    errorMsg.textContent = '提案の取得に失敗しました。しばらくしてから再度お試しください。';
-    errorMsg.classList.add('show');
+  }
+  var rest = shuffle(filtered.filter(function(n){ return prioritized.indexOf(n) === -1; }));
+  var combined = shuffle(prioritized).concat(rest).slice(0, 8);
+
+  if(combined.length === 0){
+    area.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text2);font-size:13px">条件に合う名前が見つかりませんでした。<br>条件を変えてみてください。</div>';
+    return;
   }
 
-  btn.disabled = false;
-  loading.classList.remove('show');
-};
+  var tagLabels = {gem:'💎宝石',spring:'🌸春',summer:'🌊夏',autumn:'🍁秋',winter:'❄️冬',star:'⭐星',old:'⛩古風',nature:'🌿自然',music:'🎵音楽',happy:'🍀幸',cool:'⚡かっこいい'};
 
-function renderResults(names, lastName){
-  var area = document.getElementById('resultArea');
-  area.innerHTML = names.map(function(n){
-    var fullName = lastName ? lastName + ' ' + n.kanji : n.kanji;
-    var searchQ = encodeURIComponent(n.kanji + ' 名前 意味');
-    var tags = (n.tags||[]).map(function(t){
-      return '<span class="name-tag">'+t+'</span>';
-    }).join('');
+  area.innerHTML = combined.map(function(n){
+    var q = encodeURIComponent(n.kanji);
+    var tags = (n.tags||[]).map(function(t){ return tagLabels[t] ? '<span class="name-tag">'+tagLabels[t]+'</span>' : ''; }).join('');
     return '<div class="name-card">'
       +'<div class="name-card-head">'
       +'<div class="name-kanji">'+n.kanji+'</div>'
       +'<div class="name-yomi">（'+n.yomi+'）</div>'
-      +(n.strokes ? '<div class="name-strokes">'+n.strokes+'画</div>' : '')
       +'</div>'
-      +(n.meaning ? '<div class="name-meaning">'+n.meaning+'</div>' : '')
-      +(n.point ? '<div class="name-meaning" style="color:var(--accent);font-size:12px">💡 '+n.point+'</div>' : '')
       +(tags ? '<div class="name-tags">'+tags+'</div>' : '')
       +'<div class="name-links">'
-      +'<a class="name-link" href="https://www.google.com/search?q='+searchQ+'" target="_blank">🔍 意味を調べる</a>'
-      +'<a class="name-link" href="kakusu.html?last='+encodeURIComponent(lastName||'')+'&first='+encodeURIComponent(n.kanji)+'" target="_blank">🌸 画数を診断</a>'
-      +'</div>'
-      +'</div>';
+      +'<a class="name-link" href="https://www.google.com/search?q='+q+'+名前+意味" target="_blank">🔍 意味を調べる</a>'
+      +'<a class="name-link" href="kakusu.html?first='+encodeURIComponent(n.kanji)+'" target="_blank">🌸 画数を診断</a>'
+      +'</div></div>';
   }).join('');
 
   area.scrollIntoView({behavior:'smooth', block:'start'});
