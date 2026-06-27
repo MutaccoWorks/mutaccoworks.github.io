@@ -118,11 +118,16 @@ footer a{color:#888;text-decoration:none;}
     <div class="panel-title">生まれ年を入力</div>
     <div class="input-area">
       <div class="input-group">
-        <div class="input-label">西暦（生まれ年）</div>
-        <div style="display:flex;align-items:center;gap:6px">
-          <input class="birth-input" id="birthYear" type="number" placeholder="1990" min="1950" max="2020">
-          <span style="font-size:14px;color:var(--text2)">年生まれ</span>
+        <div class="input-label">生年月日</div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <input class="birth-input" id="birthYear" type="number" placeholder="1990" min="1920" max="2020" style="width:90px">
+          <span style="font-size:14px;color:var(--text2)">年</span>
+          <input class="birth-input" id="birthMonth" type="number" placeholder="4" min="1" max="12" style="width:60px">
+          <span style="font-size:14px;color:var(--text2)">月</span>
+          <input class="birth-input" id="birthDay" type="number" placeholder="1" min="1" max="31" style="width:60px">
+          <span style="font-size:14px;color:var(--text2)">日生まれ</span>
         </div>
+        <div style="font-size:10px;color:var(--text2);margin-top:4px">4月2日以降生まれは1学年下になります</div>
       </div>
     </div>
 
@@ -190,41 +195,48 @@ document.querySelectorAll('.opt-btn').forEach(function(btn){
 });
 
 document.getElementById('birthYear').addEventListener('input', calculate);
+document.getElementById('birthMonth').addEventListener('input', calculate);
+document.getElementById('birthDay').addEventListener('input', calculate);
 
 function calculate(){
   var birth = parseInt(document.getElementById('birthYear').value);
+  var month = parseInt(document.getElementById('birthMonth').value) || 4;
+  var day   = parseInt(document.getElementById('birthDay').value) || 1;
   var resultArea = document.getElementById('resultArea');
   var noteArea = document.getElementById('noteArea');
 
-  if(isNaN(birth) || birth < 1950 || birth > 2020){
+  if(isNaN(birth) || birth < 1920 || birth > 2020){
     resultArea.classList.remove('show');
     noteArea.style.display = 'none';
     return;
   }
 
-  // 入学年度計算（4月2日以前生まれの標準ケース）
-  var elem_enter  = birth + 6;   // 小学校入学
-  var elem_exit   = birth + 12;  // 小学校卒業
-  var mid_enter   = birth + 12;
-  var mid_exit    = birth + 15;
-  var high_enter  = birth + 15;
-  var high_exit   = birth + 18;
-  var univ_enter  = birth + 18;
-  var univ_exit   = birth + 22;
-  var grad2_enter = birth + 22;
-  var grad2_exit  = birth + 24;
-  var grad3_enter = birth + 24;
-  var grad3_exit  = birth + 27;
-  var sen2_enter  = birth + 18;
-  var sen2_exit   = birth + 20;
-  var sen3_enter  = birth + 18;
-  var sen3_exit   = birth + 21;
+  // 4月2日以降生まれは1学年下（学年の繰り上げ）
+  var offset = (month > 4 || (month === 4 && day >= 2)) ? 1 : 0;
+  var base = birth + offset;
 
-  function row(label, year, copyText){
+  var elem_enter  = base + 6;
+  var elem_exit   = base + 12;
+  var mid_enter   = base + 12;
+  var mid_exit    = base + 15;
+  var high_enter  = base + 15;
+  var high_exit   = base + 18;
+  var univ_enter  = base + 18;
+  var univ_exit   = base + 22;
+  var grad2_enter = base + 22;
+  var grad2_exit  = base + 24;
+  var grad3_enter = base + 24;
+  var grad3_exit  = base + 27;
+  var sen2_enter  = base + 18;
+  var sen2_exit   = base + 20;
+  var sen3_enter  = base + 18;
+  var sen3_exit   = base + 21;
+
+  function row(label, year, month2, copyText){
     var wa = toWareki(year);
     return '<div class="school-row">'
       + '<div class="row-label">' + label + '</div>'
-      + '<div class="row-year">' + year + '年<span class="row-wa">（' + wa + '）</span></div>'
+      + '<div class="row-year">' + year + '年' + month2 + '月<span class="row-wa">（' + wa + '）</span></div>'
       + '<button class="copy-btn" onclick="copyText(\'' + copyText + '\')">' + label + 'をコピー</button>'
       + '</div>';
   }
@@ -239,32 +251,32 @@ function calculate(){
   var html = '';
 
   html += block('elem', '🏫 小学校',
-    row('入学', elem_enter, elem_enter + '年4月　小学校入学') +
-    row('卒業', elem_exit,  elem_exit  + '年3月　小学校卒業')
+    row('入学', elem_enter, 4, elem_enter + '年4月　小学校入学') +
+    row('卒業', elem_exit,  3, elem_exit  + '年3月　小学校卒業')
   );
 
   html += block('mid', '🏫 中学校',
-    row('入学', mid_enter, mid_enter + '年4月　中学校入学') +
-    row('卒業', mid_exit,  mid_exit  + '年3月　中学校卒業')
+    row('入学', mid_enter, 4, mid_enter + '年4月　中学校入学') +
+    row('卒業', mid_exit,  3, mid_exit  + '年3月　中学校卒業')
   );
 
   html += block('high', '🏫 高校',
-    row('入学', high_enter, high_enter + '年4月　高等学校入学') +
-    row('卒業', high_exit,  high_exit  + '年3月　高等学校卒業')
+    row('入学', high_enter, 4, high_enter + '年4月　高等学校入学') +
+    row('卒業', high_exit,  3, high_exit  + '年3月　高等学校卒業')
   );
 
   if(selectedOpts.univ4){
     html += block('univ', '🎓 大学（4年制）',
-      row('入学', univ_enter, univ_enter + '年4月　大学入学') +
-      row('卒業', univ_exit,  univ_exit  + '年3月　大学卒業')
+      row('入学', univ_enter, 4, univ_enter + '年4月　大学入学') +
+      row('卒業', univ_exit,  3, univ_exit  + '年3月　大学卒業')
     );
   }
 
   if(selectedOpts.grad2){
     var ge = selectedOpts.univ4 ? univ_exit : high_exit;
     html += block('grad2', '🎓 大学院（修士課程）',
-      row('入学', ge,   ge   + '年4月　大学院修士課程入学') +
-      row('修了', ge+2, ge+2 + '年3月　大学院修士課程修了')
+      row('入学', ge,   4, ge   + '年4月　大学院修士課程入学') +
+      row('修了', ge+2, 3, ge+2 + '年3月　大学院修士課程修了')
     );
   }
 
@@ -273,22 +285,22 @@ function calculate(){
       ? (selectedOpts.univ4 ? univ_exit + 2 : high_exit + 2)
       : (selectedOpts.univ4 ? univ_exit : high_exit);
     html += block('grad3', '🎓 大学院（博士課程）',
-      row('入学', ge2,   ge2   + '年4月　大学院博士課程入学') +
-      row('修了', ge2+3, ge2+3 + '年3月　大学院博士課程修了')
+      row('入学', ge2,   4, ge2   + '年4月　大学院博士課程入学') +
+      row('修了', ge2+3, 3, ge2+3 + '年3月　大学院博士課程修了')
     );
   }
 
   if(selectedOpts.senmon2){
     html += block('senmon', '🏫 専門学校（2年制）',
-      row('入学', sen2_enter, sen2_enter + '年4月　専門学校入学') +
-      row('卒業', sen2_exit,  sen2_exit  + '年3月　専門学校卒業')
+      row('入学', sen2_enter, 4, sen2_enter + '年4月　専門学校入学') +
+      row('卒業', sen2_exit,  3, sen2_exit  + '年3月　専門学校卒業')
     );
   }
 
   if(selectedOpts.senmon3){
     html += block('senmon', '🏫 専門学校（3年制）',
-      row('入学', sen3_enter, sen3_enter + '年4月　専門学校入学') +
-      row('卒業', sen3_exit,  sen3_exit  + '年3月　専門学校卒業')
+      row('入学', sen3_enter, 4, sen3_enter + '年4月　専門学校入学') +
+      row('卒業', sen3_exit,  3, sen3_exit  + '年3月　専門学校卒業')
     );
   }
 

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ルーレット・あみだくじ・チーム分け | 無料くじ引きツール | むたっこ製作所</title>
+<meta name="description" content="ルーレット・あみだくじ・チーム分けが無料で使える決め事ツール。項目を入力してくるくる回すルーレット、名前を入れてランダム割り当てのあみだくじ、人数を入れてチーム分け。登録不要・スマホ対応。むたっこ製作所。">
+<link rel="icon" href="images/icon.png">
+<link rel="canonical" href="https://mutaccoworks.github.io/roulette.html">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754050840177143" crossorigin="anonymous"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f5f0ff;
+  --surface:#ffffff;
+  --surface2:#f0eaff;
+  --accent:#7c3aed;
+  --accent2:#a855f7;
+  --text:#1a0a2e;
+  --text2:#6b5a8a;
+  --border:#d8c8f0;
+  --r:14px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Zen Kaku Gothic New',sans-serif;min-height:100vh;}
+
+/* バナー */
+.top-banner{width:100%;background:#fff;border-bottom:2px solid #d0e8ec;padding:0;text-decoration:none;display:block;}
+.top-banner-inner{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;}
+.top-banner-left{display:flex;align-items:center;gap:10px;}
+.top-banner-icon{width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#fff;border:1px solid #e0e0e0;}
+.top-banner-icon img{width:100%;height:100%;object-fit:cover;display:block;}
+.top-banner-text{display:flex;flex-direction:column;gap:1px;}
+.top-banner-ja{font-size:14px;font-weight:bold;color:#111;letter-spacing:0.5px;}
+.top-banner-en{font-size:9px;color:#0191a2;letter-spacing:0.5px;white-space:nowrap;}
+.top-banner-btn{background:linear-gradient(90deg,#005f6b,#0191a2,#00d4e8,#0191a2,#005f6b);background-size:300%;color:#fff;font-size:12px;font-weight:bold;padding:8px 14px;border-radius:20px;letter-spacing:1px;white-space:nowrap;box-shadow:0 2px 12px rgba(1,145,162,0.4);animation:gbg 2s linear infinite;}
+@keyframes gbg{0%{background-position:0%}100%{background-position:300%}}
+
+.page-header{text-align:center;padding:24px 16px 8px;}
+.page-header h1{font-family:'M PLUS 1p',sans-serif;font-size:24px;font-weight:900;letter-spacing:4px;color:var(--accent);}
+.page-header p{font-size:12px;color:var(--text2);margin-top:4px;letter-spacing:1px;}
+
+.main{max-width:640px;margin:0 auto;padding:0 16px 40px;display:flex;flex-direction:column;gap:16px;}
+
+/* モードタブ */
+.mode-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.mode-tab{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:12px 8px;cursor:pointer;text-align:center;transition:all 0.2s;display:flex;flex-direction:column;gap:4px;align-items:center;}
+.mode-tab.on{border-color:var(--accent);background:rgba(124,58,237,0.08);}
+.mode-tab .tab-icon{font-size:22px;}
+.mode-tab .tab-name{font-size:11px;letter-spacing:1px;color:var(--text2);}
+.mode-tab.on .tab-name{color:var(--accent);}
+
+/* パネル */
+.panel{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--border);padding:16px;display:flex;flex-direction:column;gap:12px;}
+.panel-title{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:8px;}
+
+/* モードパネル */
+.mode-panel{display:none;flex-direction:column;gap:12px;}
+.mode-panel.show{display:flex;}
+
+/* 入力 */
+.item-input{border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;font-family:'Zen Kaku Gothic New',sans-serif;outline:none;background:var(--surface2);transition:border-color 0.15s;width:100%;}
+.item-input:focus{border-color:var(--accent);}
+.item-list{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto;}
+.item-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:8px;padding:8px 10px;}
+.item-row-text{flex:1;font-size:13px;}
+.item-del{background:none;border:none;cursor:pointer;color:var(--text2);font-size:16px;line-height:1;padding:0 4px;}
+.item-del:hover{color:var(--accent);}
+.add-btn{border:1.5px dashed var(--border);border-radius:10px;padding:8px;font-size:12px;cursor:pointer;background:transparent;color:var(--text2);font-family:'Zen Kaku Gothic New',sans-serif;transition:all 0.15s;width:100%;}
+.add-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* メインボタン */
+.main-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'M PLUS 1p',sans-serif;font-size:16px;font-weight:900;letter-spacing:3px;border:none;border-radius:var(--r);padding:16px;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.4);transition:transform 0.1s;}
+.main-btn:hover{transform:translateY(-1px);}
+.main-btn:active{transform:scale(0.98);}
+
+/* ルーレットキャンバス */
+.roulette-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.roulette-canvas-wrap{position:relative;}
+canvas#rouletteCanvas{border-radius:50%;display:block;}
+.roulette-arrow{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));}
+
+/* 結果表示 */
+.result-display{background:var(--surface2);border:2px solid var(--accent);border-radius:var(--r);padding:16px;text-align:center;display:none;}
+.result-display.show{display:block;}
+.result-label{font-size:11px;color:var(--text2);letter-spacing:2px;margin-bottom:6px;}
+.result-value{font-family:'M PLUS 1p',sans-serif;font-size:24px;font-weight:900;color:var(--accent);}
+
+/* あみだくじ */
+.amida-canvas-wrap{overflow-x:auto;}
+canvas#amidaCanvas{display:block;margin:0 auto;}
+.amida-result{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+.amida-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:8px;padding:8px 12px;}
+.amida-from{font-weight:700;color:var(--accent);min-width:60px;}
+.amida-arrow{color:var(--text2);}
+.amida-to{font-weight:700;color:var(--accent2);}
+
+/* チーム分け */
+.team-result{display:flex;flex-direction:column;gap:8px;}
+.team-card{background:var(--surface2);border-radius:var(--r);padding:12px 14px;border-left:4px solid var(--accent);}
+.team-name{font-family:'M PLUS 1p',sans-serif;font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px;letter-spacing:1px;}
+.team-members{display:flex;flex-wrap:wrap;gap:6px;}
+.member-chip{background:var(--accent);color:#fff;border-radius:20px;padding:3px 12px;font-size:12px;}
+
+.num-row{display:flex;align-items:center;gap:10px;}
+.num-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.num-btn:hover{border-color:var(--accent);color:var(--accent);}
+.num-display{font-family:'M PLUS 1p',sans-serif;font-size:22px;font-weight:900;color:var(--accent);width:40px;text-align:center;}
+
+.ad-space{width:100%;height:60px;background:#ede8ff;border:1px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#c0b0e0;font-size:10px;letter-spacing:2px;}
+
+footer{text-align:center;padding:16px;font-size:10px;color:#aaa;letter-spacing:2px;}
+footer a{color:#aaa;text-decoration:none;}
+</style>
+</head>
+<body>
+
+<a class="top-banner" href="index.html">
+  <div class="top-banner-inner">
+    <div class="top-banner-left">
+      <div class="top-banner-icon"><img src="images/icon.png" alt="むたっこ製作所"></div>
+      <div class="top-banner-text">
+        <div class="top-banner-ja">むたっこ製作所</div>
+        <div class="top-banner-en">Mutacco Works — 無料ツール集</div>
+      </div>
+    </div>
+    <div class="top-banner-btn">ほかのツールも見ていってね 🐈‍⬛</div>
+  </div>
+</a>
+
+<div class="page-header">
+  <h1>🎡 決め事ツール</h1>
+  <p>ルーレット・あみだくじ・チーム分け</p>
+</div>
+
+<div class="main">
+
+  <div class="ad-space">[ AD ]</div>
+
+  <!-- モードタブ -->
+  <div class="mode-tabs">
+    <div class="mode-tab on" onclick="switchMode('roulette',this)">
+      <div class="tab-icon">🎡</div>
+      <div class="tab-name">ルーレット</div>
+    </div>
+    <div class="mode-tab" onclick="switchMode('amida',this)">
+      <div class="tab-icon">🎋</div>
+      <div class="tab-name">あみだくじ</div>
+    </div>
+    <div class="mode-tab" onclick="switchMode('team',this)">
+      <div class="tab-icon">👥</div>
+      <div class="tab-name">チーム分け</div>
+    </div>
+  </div>
+
+  <!-- ルーレット -->
+  <div class="mode-panel show" id="panel-roulette">
+    <div class="panel">
+      <div class="panel-title">項目を入力</div>
+      <div class="item-list" id="roulette-list"></div>
+      <div style="display:flex;gap:8px">
+        <input class="item-input" id="roulette-input" placeholder="項目を入力" style="flex:1">
+        <button class="add-btn" onclick="addItem('roulette')" style="width:auto;padding:8px 16px;border-style:solid">追加</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">ROULETTE</div>
+      <div class="roulette-wrap">
+        <div class="roulette-canvas-wrap">
+          <div class="roulette-arrow">▼</div>
+          <canvas id="rouletteCanvas" width="280" height="280"></canvas>
+        </div>
+        <div class="result-display" id="roulette-result">
+          <div class="result-label">RESULT</div>
+          <div class="result-value" id="roulette-result-val">―</div>
+        </div>
+      </div>
+      <button class="main-btn" id="roulette-btn" onclick="spinRoulette()">🎡 まわす！</button>
+    </div>
+  </div>
+
+  <!-- あみだくじ -->
+  <div class="mode-panel" id="panel-amida">
+    <div class="panel">
+      <div class="panel-title">参加者を入力</div>
+      <div class="item-list" id="amida-names-list"></div>
+      <div style="display:flex;gap:8px">
+        <input class="item-input" id="amida-name-input" placeholder="名前を入力" style="flex:1">
+        <button class="add-btn" onclick="addAmidaName()" style="width:auto;padding:8px 16px;border-style:solid">追加</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">結果（あたり）を入力</div>
+      <div class="item-list" id="amida-prizes-list"></div>
+      <div style="display:flex;gap:8px">
+        <input class="item-input" id="amida-prize-input" placeholder="例：幹事、一等賞…" style="flex:1">
+        <button class="add-btn" onclick="addAmidaPrize()" style="width:auto;padding:8px 16px;border-style:solid">追加</button>
+      </div>
+      <div style="font-size:10px;color:var(--text2)">未入力の場合は「1位・2位…」が自動で入ります</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">あみだくじ</div>
+      <button class="main-btn" onclick="generateAmida()" style="background:var(--surface2);color:var(--accent);border:1.5px solid var(--accent);box-shadow:none;font-size:13px;padding:10px">🎋 あみだくじを作る</button>
+      <div id="amida-canvas-wrap" style="display:none;flex-direction:column;gap:10px">
+        <!-- スタート地点選択 -->
+        <div>
+          <div style="font-size:11px;color:var(--text2);letter-spacing:1px;margin-bottom:8px">自動で割り振りました。ボタンを押すと並び替えできます</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px" id="amida-start-btns"></div>
+        </div>
+        <div class="amida-canvas-wrap">
+          <canvas id="amidaCanvas" width="300" height="300"></canvas>
+        </div>
+        <button class="main-btn" onclick="revealAmida()">🎋 あみだをひく！</button>
+      </div>
+      <div class="amida-result" id="amida-result"></div>
+    </div>
+  </div>
+
+  <!-- チーム分け -->
+  <div class="mode-panel" id="panel-team">
+    <div class="panel">
+      <div class="panel-title">メンバーを入力</div>
+      <div class="item-list" id="team-member-list"></div>
+      <div style="display:flex;gap:8px">
+        <input class="item-input" id="team-member-input" placeholder="名前を入力" style="flex:1">
+        <button class="add-btn" onclick="addTeamMember()" style="width:auto;padding:8px 16px;border-style:solid">追加</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">チーム数</div>
+      <div class="num-row">
+        <button class="num-btn" onclick="changeTeamNum(-1)">－</button>
+        <div class="num-display" id="teamNumDisplay">2</div>
+        <span style="font-size:14px;color:var(--text2)">チーム</span>
+        <button class="num-btn" onclick="changeTeamNum(1)">＋</button>
+      </div>
+    </div>
+    <div class="panel" id="team-result-panel" style="display:none">
+      <div class="panel-title">チーム分け結果</div>
+      <div class="team-result" id="team-result"></div>
+    </div>
+    <button class="main-btn" onclick="divideTeams()">👥 チームを分ける！</button>
+  </div>
+
+  <div class="ad-space">[ AD ]</div>
+
+  <div style="font-size:11px;color:var(--text2);line-height:2;letter-spacing:0.5px;">
+    <p style="margin-bottom:6px;font-size:12px;color:var(--text);font-weight:bold">決め事ツールとは？</p>
+    <p>何かを<strong>ランダムで決めたい</strong>ときに使える無料ツールです。<strong>ルーレット</strong>で項目をくるくる回して決める、<strong>あみだくじ</strong>でランダムに割り当てる、<strong>チーム分け</strong>でメンバーをシャッフルする3つのモードがあります。飲み会の<strong>幹事決め</strong>・<strong>順番決め</strong>・<strong>グループ分け</strong>など、どんな場面でも使えます。登録不要・完全無料・スマホ対応。</p>
+  </div>
+
+</div>
+
+<footer>© 2026 Mutacco Works. ｜ <a href="https://mutaccoworks.github.io/privacy.html">Privacy Policy</a> ｜ <a href="https://forms.gle/iqYoraUazwuqxXeC9" target="_blank">お問い合わせ</a></footer>
+
+<script>
+// ===== 共通 =====
+var COLORS = ['#06b6d4','#a855f7','#ec4899','#f59e0b','#10b981','#3b82f6','#ef4444','#8b5cf6','#7c3aed','#f97316'];
+
+function switchMode(mode, el){
+  document.querySelectorAll('.mode-tab').forEach(function(t){t.classList.remove('on');});
+  document.querySelectorAll('.mode-panel').forEach(function(p){p.classList.remove('show');});
+  el.classList.add('on');
+  document.getElementById('panel-'+mode).classList.add('show');
+}
+
+function shuffle(arr){
+  var a = arr.slice();
+  for(var i=a.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=a[i];a[i]=a[j];a[j]=t;
+  }
+  return a;
+}
+
+// ===== ルーレット =====
+var rouletteItems = ['ラーメン','カレー','焼肉','寿司','パスタ'];
+var spinning = false;
+
+function renderRouletteList(){
+  var el = document.getElementById('roulette-list');
+  var html2 = '';
+  rouletteItems.forEach(function(item,i){
+    html2 += '<div class="item-row">'
+      +'<span style="width:12px;height:12px;border-radius:50%;background:'+COLORS[i%COLORS.length]+';flex-shrink:0;display:inline-block"></span>'
+      +'<span class="item-row-text">'+item+'</span>'
+      +'<button class="item-del" onclick="removeRouletteItem('+i+')">×</button>'
+      +'</div>';
+  });
+  el.innerHTML = html2;
+  drawRoulette(0);
+}
+
+function addItem(mode){
+  var input = document.getElementById(mode+'-input');
+  var val = input.value.trim();
+  if(!val) return;
+  if(mode === 'roulette') rouletteItems.push(val);
+  input.value = '';
+  if(mode === 'roulette') renderRouletteList();
+}
+
+function removeRouletteItem(i){ rouletteItems.splice(i,1); renderRouletteList(); }
+function removeItem(mode, i){
+  if(mode === 'roulette'){ rouletteItems.splice(i,1); renderRouletteList(); }
+}
+
+document.getElementById('roulette-input').addEventListener('keydown', function(e){
+  if(e.key === 'Enter') addItem('roulette');
+});
+
+function drawRoulette(angle){
+  var cv = document.getElementById('rouletteCanvas');
+  var ctx = cv.getContext('2d');
+  var cx = cv.width/2, cy = cv.height/2, r = cx - 4;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  var items = rouletteItems.length > 0 ? rouletteItems : ['?'];
+  var slice = Math.PI*2/items.length;
+  items.forEach(function(item,i){
+    var start = angle + i*slice, end = start + slice;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,end);
+    ctx.fillStyle = COLORS[i%COLORS.length]; ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(start+slice/2);
+    ctx.textAlign = 'right'; ctx.fillStyle = '#fff';
+    ctx.font = 'bold '+Math.min(16,Math.max(10,200/items.length))+'px "M PLUS 1p"';
+    ctx.fillText(item.length>8?item.slice(0,8)+'…':item, r-10, 5);
+    ctx.restore();
+  });
+  ctx.beginPath(); ctx.arc(cx,cy,18,0,Math.PI*2);
+  ctx.fillStyle = '#fff'; ctx.fill();
+  ctx.strokeStyle = '#e0d0f0'; ctx.lineWidth = 2; ctx.stroke();
+}
+
+function spinRoulette(){
+  if(spinning || rouletteItems.length < 2) return;
+  spinning = true;
+  document.getElementById('roulette-btn').disabled = true;
+  document.getElementById('roulette-result').classList.remove('show');
+  var targetAngle = Math.PI*2*(5+Math.random()*5)+Math.random()*Math.PI*2;
+  var duration = 3500, start = null;
+  function ease(t){ return t<0.5?2*t*t:-1+(4-2*t)*t; }
+  function frame(ts){
+    if(!start) start = ts;
+    var progress = Math.min((ts-start)/duration,1);
+    drawRoulette(-ease(progress)*targetAngle);
+    if(progress<1){ requestAnimationFrame(frame); }
+    else {
+      var finalAngle = targetAngle%(Math.PI*2);
+      var slice = Math.PI*2/rouletteItems.length;
+      var normalized = (Math.PI*2-finalAngle%(Math.PI*2))%(Math.PI*2);
+      var idx = Math.floor(normalized/slice)%rouletteItems.length;
+      document.getElementById('roulette-result-val').textContent = rouletteItems[idx];
+      document.getElementById('roulette-result').classList.add('show');
+      spinning = false;
+      document.getElementById('roulette-btn').disabled = false;
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+renderRouletteList();
+
+// ===== あみだくじ =====
+var amidaNames = ['Aさん','Bさん','Cさん'];
+var amidaPrizes = [];
+var amidaHlines = [], amidaShuffledPrizes = [], amidaCols = [];
+var amidaTopY = 40, amidaBottomY = 240;
+var amidaSelectedStart = {};
+
+function renderAmidaList(listId, arr, removeFunc){
+  var el = document.getElementById(listId);
+  el.innerHTML = arr.map(function(item,i){
+    return '<div class="item-row"><span class="item-row-text">'+item+'</span>'
+      +'<button class="item-del" onclick="'+removeFunc+'('+i+')">×</button></div>';
+  }).join('');
+}
+
+function addAmidaName(){
+  var val = document.getElementById('amida-name-input').value.trim();
+  if(!val) return;
+  amidaNames.push(val);
+  document.getElementById('amida-name-input').value = '';
+  renderAmidaList('amida-names-list', amidaNames, 'removeAmidaName');
+}
+window.removeAmidaName = function(i){ amidaNames.splice(i,1); renderAmidaList('amida-names-list',amidaNames,'removeAmidaName'); };
+
+function addAmidaPrize(){
+  var val = document.getElementById('amida-prize-input').value.trim();
+  if(!val) return;
+  amidaPrizes.push(val);
+  document.getElementById('amida-prize-input').value = '';
+  renderAmidaList('amida-prizes-list', amidaPrizes, 'removeAmidaPrize');
+}
+window.removeAmidaPrize = function(i){ amidaPrizes.splice(i,1); renderAmidaList('amida-prizes-list',amidaPrizes,'removeAmidaPrize'); };
+
+document.getElementById('amida-name-input').addEventListener('keydown', function(e){ if(e.key==='Enter') addAmidaName(); });
+document.getElementById('amida-prize-input').addEventListener('keydown', function(e){ if(e.key==='Enter') addAmidaPrize(); });
+
+function generateAmida(){
+  if(amidaNames.length < 2) return;
+  var n = amidaNames.length;
+  // あたりが人数より少ない場合は「はずれ」で埋める
+  var basePrizes = amidaPrizes.length > 0 ? amidaPrizes : ['あたり'];
+  var prizes = basePrizes.slice();
+  while(prizes.length < n) prizes.push('はずれ');
+  amidaShuffledPrizes = shuffle(prizes.slice(0,n));
+  amidaSelectedStart = {};
+  amidaCols = [];
+  var cv = document.getElementById('amidaCanvas');
+  var colW = Math.max(60, Math.min(80, (300-40)/n));
+  cv.width = colW*n+40; cv.height = 280;
+  for(var i=0;i<n;i++) amidaCols.push(40+i*colW+colW/2);
+  // 横線生成：各列に最低1本は横線が接するよう保証
+  var rows = 6;
+  var maxAttempts = 20;
+  for(var attempt=0; attempt<maxAttempts; attempt++){
+    amidaHlines = [];
+    for(var r=1;r<=rows;r++){
+      var y = amidaTopY+(amidaBottomY-amidaTopY)*r/(rows+1);
+      var used = [];
+      for(var c=0;c<n-1;c++){
+        if(used.indexOf(c)===-1&&used.indexOf(c-1)===-1&&Math.random()>0.4){
+          amidaHlines.push({c:c,y:y}); used.push(c);
+        }
+      }
+    }
+    // 各列に横線が1本以上あるか確認
+    var colHasLine = Array(n).fill(false);
+    amidaHlines.forEach(function(h){
+      colHasLine[h.c] = true;
+      colHasLine[h.c+1] = true;
+    });
+    // 各列に2本以上あるか確認
+    var colCount = Array(n).fill(0);
+    amidaHlines.forEach(function(h){ colCount[h.c]++; colCount[h.c+1]++; });
+    if(colCount.every(function(v){ return v >= 2; })) break;
+  }
+  // 最初からランダムに名前を割り振る
+  var shuffledNames = shuffle(amidaNames.slice());
+  amidaSelectedStart = {};
+  shuffledNames.forEach(function(name, i){ amidaSelectedStart[name] = i; });
+
+  document.getElementById('amida-canvas-wrap').style.display = 'flex';
+  document.getElementById('amida-result').innerHTML = '';
+  renderStartBtns();
+  renderAmidaCanvas();
+}
+
+function renderStartBtns(){
+  var n = amidaNames.length;
+  var el = document.getElementById('amida-start-btns');
+  // 名前→列の逆引き
+  var nameToCol = amidaSelectedStart; // {name: col}
+  var html2 = '';
+  amidaNames.forEach(function(name, i){
+    var assigned = name in nameToCol;
+    var col = assigned ? nameToCol[name] : null;
+    var bg = assigned ? COLORS[i%COLORS.length] : '#e0d8f0';
+    var color = assigned ? '#fff' : 'var(--accent)';
+    var label = assigned ? name + '（' + (col+1) + '番）' : name;
+    html2 += '<button onclick="selectStartByName(\'' + name.replace(/'/g,"\\'") + '\')" style="background:'+bg+';color:'+color+';border:1.5px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;font-family:sans-serif;cursor:pointer;font-weight:700">'+label+'</button>';
+  });
+  el.innerHTML = html2;
+}
+
+window.selectStartByName = function(name){
+  if(name in amidaSelectedStart){
+    // すでに選んでいる→キャンセル
+    delete amidaSelectedStart[name];
+  } else {
+    // 空いている列をランダムに1つ選ぶ
+    var usedCols = Object.values ? Object.values(amidaSelectedStart) : Object.keys(amidaSelectedStart).map(function(k){ return amidaSelectedStart[k]; });
+    var freeCols = [];
+    for(var i=0;i<amidaNames.length;i++){ if(usedCols.indexOf(i)===-1) freeCols.push(i); }
+    if(freeCols.length > 0){
+      var col = freeCols[Math.floor(Math.random()*freeCols.length)];
+      amidaSelectedStart[name] = col;
+    }
+  }
+  renderStartBtns();
+  renderAmidaCanvas();
+};
+
+function renderAmidaCanvas(){
+  var cv = document.getElementById('amidaCanvas');
+  var ctx = cv.getContext('2d');
+  var n = amidaNames.length;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  var colToName = {};
+  Object.keys(amidaSelectedStart).forEach(function(name){ colToName[amidaSelectedStart[name]] = name; });
+  ctx.lineWidth = 3; ctx.lineCap = 'round';
+  for(var i=0;i<n;i++){
+    var name = colToName[i];
+    ctx.strokeStyle = name ? COLORS[amidaNames.indexOf(name)%COLORS.length] : '#d0c0e8';
+    ctx.beginPath(); ctx.moveTo(amidaCols[i],amidaTopY); ctx.lineTo(amidaCols[i],amidaBottomY); ctx.stroke();
+  }
+  amidaHlines.forEach(function(h){
+    ctx.strokeStyle = '#555555'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(amidaCols[h.c],h.y); ctx.lineTo(amidaCols[h.c+1],h.y); ctx.stroke();
+  });
+  ctx.textAlign = 'center'; ctx.font = 'bold 12px sans-serif';
+  for(var j=0;j<n;j++){
+    var nm = colToName[j];
+    ctx.fillStyle = nm ? COLORS[amidaNames.indexOf(nm)%COLORS.length] : '#b0a0d0';
+    ctx.fillText(nm ? (nm.length>4?nm.slice(0,4)+'…':nm) : '？', amidaCols[j], amidaTopY-12);
+    ctx.beginPath(); ctx.arc(amidaCols[j],amidaTopY,5,0,Math.PI*2);
+    ctx.fillStyle = nm ? COLORS[amidaNames.indexOf(nm)%COLORS.length] : '#c0b0e0'; ctx.fill();
+  }
+  ctx.font = 'bold 11px sans-serif';
+  for(var k=0;k<n;k++){
+    ctx.fillStyle = '#c0b0e0';
+    ctx.fillText('？', amidaCols[k], amidaBottomY+18);
+    ctx.beginPath(); ctx.arc(amidaCols[k],amidaBottomY,5,0,Math.PI*2); ctx.fill();
+  }
+}
+
+function traceAmida(startIdx){
+  var pos = startIdx;
+  var path = [{x:amidaCols[pos],y:amidaTopY,col:pos}];
+  amidaHlines.slice().sort(function(a,b){return a.y-b.y;}).forEach(function(h){
+    if(h.c===pos){ path.push({x:amidaCols[pos],y:h.y,col:pos}); pos++; path.push({x:amidaCols[pos],y:h.y,col:pos}); }
+    else if(h.c+1===pos){ path.push({x:amidaCols[pos],y:h.y,col:pos}); pos--; path.push({x:amidaCols[pos],y:h.y,col:pos}); }
+  });
+  path.push({x:amidaCols[pos],y:amidaBottomY,col:pos});
+  return path;
+}
+
+function revealAmida(){
+  var n = amidaNames.length;
+  var cv = document.getElementById('amidaCanvas');
+  var ctx = cv.getContext('2d');
+  var colToName = {};
+  Object.keys(amidaSelectedStart).forEach(function(name){ colToName[amidaSelectedStart[name]] = name; });
+  var freeCols = [], unassignedNames = amidaNames.filter(function(name){ return !(name in amidaSelectedStart); });
+  for(var i=0;i<n;i++){ if(!colToName[i]) freeCols.push(i); }
+  shuffle(freeCols).forEach(function(col,i){ if(unassignedNames[i]) colToName[col] = unassignedNames[i]; });
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.lineWidth = 3; ctx.lineCap = 'round';
+  for(var j=0;j<n;j++){
+    ctx.strokeStyle = COLORS[amidaNames.indexOf(colToName[j])%COLORS.length];
+    ctx.beginPath(); ctx.moveTo(amidaCols[j],amidaTopY); ctx.lineTo(amidaCols[j],amidaBottomY); ctx.stroke();
+  }
+  amidaHlines.forEach(function(h){
+    ctx.strokeStyle = '#555555'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(amidaCols[h.c],h.y); ctx.lineTo(amidaCols[h.c+1],h.y); ctx.stroke();
+  });
+  var results = [];
+  for(var k=0;k<n;k++){
+    var nm = colToName[k]; if(!nm) continue;
+    var path = traceAmida(k);
+    var prize = amidaShuffledPrizes[path[path.length-1].col];
+    results.push({name:nm, prize:prize, col:k});
+    ctx.strokeStyle = COLORS[amidaNames.indexOf(nm)%COLORS.length];
+    ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(path[0].x,path[0].y);
+    path.forEach(function(p){ ctx.lineTo(p.x,p.y); }); ctx.stroke();
+  }
+  ctx.textAlign = 'center'; ctx.font = 'bold 12px sans-serif';
+  for(var m=0;m<n;m++){
+    var nm2 = colToName[m];
+    ctx.fillStyle = COLORS[amidaNames.indexOf(nm2)%COLORS.length];
+    ctx.fillText(nm2.length>4?nm2.slice(0,4)+'…':nm2, amidaCols[m], amidaTopY-12);
+    ctx.beginPath(); ctx.arc(amidaCols[m],amidaTopY,5,0,Math.PI*2); ctx.fill();
+  }
+  ctx.font = 'bold 11px sans-serif';
+  amidaShuffledPrizes.forEach(function(prize,i){
+    ctx.fillStyle = '#7c3aed';
+    ctx.fillText(prize.length>4?prize.slice(0,4)+'…':prize, amidaCols[i], amidaBottomY+18);
+    ctx.beginPath(); ctx.arc(amidaCols[i],amidaBottomY,5,0,Math.PI*2); ctx.fill();
+  });
+  results.sort(function(a,b){ return amidaNames.indexOf(a.name)-amidaNames.indexOf(b.name); });
+  document.getElementById('amida-result').innerHTML = results.map(function(r){
+    var color = COLORS[amidaNames.indexOf(r.name)%COLORS.length];
+    return '<div class="amida-row" style="border-left:3px solid '+color+'">'
+      +'<span class="amida-from" style="color:'+color+'">'+r.name+'</span>'
+      +'<span class="amida-arrow">→</span>'
+      +'<span class="amida-to" style="color:'+color+'">'+r.prize+'</span></div>';
+  }).join('');
+}
+
+renderAmidaList('amida-names-list', amidaNames, 'removeAmidaName');
+
+// ===== チーム分け =====
+var teamMembers = [];
+var teamNum = 2;
+
+function renderTeamMemberList(){
+  var el = document.getElementById('team-member-list');
+  el.innerHTML = teamMembers.map(function(m,i){
+    return '<div class="item-row"><span class="item-row-text">'+m+'</span>'
+      +'<button class="item-del" onclick="removeTeamMember('+i+')">×</button></div>';
+  }).join('');
+}
+window.removeTeamMember = function(i){ teamMembers.splice(i,1); renderTeamMemberList(); };
+
+function addTeamMember(){
+  var val = document.getElementById('team-member-input').value.trim();
+  if(!val) return;
+  teamMembers.push(val);
+  document.getElementById('team-member-input').value = '';
+  renderTeamMemberList();
+}
+document.getElementById('team-member-input').addEventListener('keydown', function(e){ if(e.key==='Enter') addTeamMember(); });
+
+window.changeTeamNum = function(d){
+  teamNum = Math.max(2, Math.min(10, teamNum+d));
+  document.getElementById('teamNumDisplay').textContent = teamNum;
+};
+
+function divideTeams(){
+  if(teamMembers.length < teamNum) return;
+  var shuffled = shuffle(teamMembers);
+  var teams = [];
+  for(var i=0;i<teamNum;i++) teams.push([]);
+  shuffled.forEach(function(m,i){ teams[i%teamNum].push(m); });
+  var panel = document.getElementById('team-result-panel');
+  var el = document.getElementById('team-result');
+  el.innerHTML = teams.map(function(t,i){
+    return '<div class="team-card" style="border-left-color:'+COLORS[i%COLORS.length]+'">'
+      +'<div class="team-name" style="color:'+COLORS[i%COLORS.length]+'">チーム '+(i+1)+'</div>'
+      +'<div class="team-members">'+t.map(function(m){
+        return '<span class="member-chip" style="background:'+COLORS[i%COLORS.length]+'">'+m+'</span>';
+      }).join('')+'</div></div>';
+  }).join('');
+  panel.style.display = 'flex';
+}
+</script>
+</body>
+</html>
