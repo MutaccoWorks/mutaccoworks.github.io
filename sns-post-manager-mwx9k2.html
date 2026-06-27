@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SNS投稿管理 | むたっこ製作所</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f5f0ff;--surface:#fff;--accent:#7c3aed;--accent2:#a855f7;
+  --text:#1a0a2e;--text2:#6a4a8a;--border:#e0d0f0;--r:12px;
+}
+body{background:var(--bg);color:var(--text);font-family:'Zen Kaku Gothic New',sans-serif;min-height:100vh;padding:20px 16px 60px;}
+
+h1{font-family:'M PLUS 1p',sans-serif;font-size:20px;font-weight:900;color:var(--accent);letter-spacing:3px;margin-bottom:4px;}
+.subtitle{font-size:11px;color:var(--text2);letter-spacing:1px;margin-bottom:24px;}
+
+.tool-cards{display:flex;flex-direction:column;gap:16px;max-width:680px;margin:0 auto;}
+
+.tool-card{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--border);overflow:hidden;}
+.tool-head{padding:12px 16px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;display:flex;align-items:center;gap:10px;}
+.tool-icon{font-size:20px;}
+.tool-name{font-family:'M PLUS 1p',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;}
+.tool-url{font-size:10px;opacity:0.8;margin-left:auto;}
+
+.post-list{padding:12px 16px;display:flex;flex-direction:column;gap:10px;}
+
+.post-item{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;}
+.post-platform{font-size:10px;letter-spacing:2px;color:var(--accent);padding:6px 12px;background:rgba(124,58,237,0.06);border-bottom:1px solid var(--border);}
+.post-body{padding:10px 12px;font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;word-break:break-all;}
+.post-actions{padding:8px 12px;display:flex;gap:8px;border-top:1px solid var(--border);background:#fafafa;}
+.copy-btn{background:var(--accent);color:#fff;border:none;border-radius:20px;padding:5px 14px;font-size:11px;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;transition:all 0.15s;letter-spacing:0.5px;}
+.copy-btn:hover{background:var(--accent2);}
+.copy-btn.done{background:#10b981;}
+.char-count{font-size:10px;color:var(--text2);margin-left:auto;align-self:center;}
+.post-body[contenteditable]:focus{outline:2px solid var(--accent);border-radius:4px;}
+.post-body[contenteditable]{cursor:text;}
+
+.screenshot-hint{font-size:10px;color:var(--text2);padding:8px 16px 12px;letter-spacing:0.5px;}
+
+.add-note{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--border);padding:14px 16px;max-width:680px;margin:16px auto 0;}
+.add-note textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:10px;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;outline:none;resize:vertical;min-height:80px;background:#fafafa;}
+.add-note textarea:focus{border-color:var(--accent);}
+.add-note-label{font-size:11px;color:var(--accent);letter-spacing:2px;margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<div style="max-width:680px;margin:0 auto 20px;">
+  <h1>📋 SNS投稿管理</h1>
+  <div class="subtitle">むたっこ製作所 ― X投稿文ストック</div>
+</div>
+
+<div class="tool-cards">
+
+  <!-- 画数診断 -->
+  <div class="tool-card">
+    <div class="tool-head">
+      <span class="tool-icon">🌸</span>
+      <span class="tool-name">名前の画数診断</span>
+      <span class="tool-url">kakusu.html</span>
+    </div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-platform">X（メイン）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-kakusu-1">その名前、運命を知ってる？🌸✨
+
+姓名を入れるだけで
+五格・画数・運勢を無料診断🔮
+
+天格・地格・人格・外格・総格
+すべてその場で計算します📊
+
+👉 mutaccoworks.github.io/kakusu.html
+
+#姓名判断 #名前 #画数 #占い #無料</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-kakusu-1',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-kakusu-1',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-kakusu-1"></span>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-platform">X（バリエーション）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-kakusu-2">子供の名前、画数で選んでみた？👶🌸
+
+苗字と名前を入れると
+・各文字の画数✍️
+・五格の吉凶🔮
+・仕事運・恋愛運・総合運💫
+
+全部まとめて出ます🌸 無料です
+
+👉 mutaccoworks.github.io/kakusu.html
+
+#姓名判断 #命名 #名付け #赤ちゃん</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-kakusu-2',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-kakusu-2',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-kakusu-2"></span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot-hint">📸 スクショ推奨：診断結果画面（五格＋運勢ゲージ）</div>
+  </div>
+
+  <!-- 名前提案 -->
+  <div class="tool-card">
+    <div class="tool-head">
+      <span class="tool-icon">🍼</span>
+      <span class="tool-name">赤ちゃんの名前提案</span>
+      <span class="tool-url">namegen.html</span>
+    </div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-platform">X（メイン）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-namegen-1">名前、まだ迷ってる？🐣💭
+
+宝石💎・季節🌸・古風⛩️・星⭐
+テーマを選ぶだけで
+800通りの候補を提案します✨
+
+使いたい漢字も指定できるよ🖊️
+
+👉 mutaccoworks.github.io/namegen.html
+
+#命名 #名付け #赤ちゃん #育児 #無料</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-namegen-1',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-namegen-1',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-namegen-1"></span>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-platform">X（バリエーション）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-namegen-2">赤ちゃんの名前、どうやって決めた？👶💕
+
+「💎宝石系」「🌸春系」「⛩️古風」
+テーマで絞って候補を一覧表示✨
+
+画数診断ページへのリンクつきだから
+気に入った名前をそのまま診断できる🌸
+
+👉 mutaccoworks.github.io/namegen.html
+
+#命名 #名付け #育児準備 #赤ちゃん</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-namegen-2',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-namegen-2',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-namegen-2"></span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot-hint">📸 スクショ推奨：名前カード一覧（ジャンルタグつき）</div>
+  </div>
+
+  <!-- 晩御飯 -->
+  <div class="tool-card">
+    <div class="tool-head">
+      <span class="tool-icon">🍳</span>
+      <span class="tool-name">晩御飯メニュー提案</span>
+      <span class="tool-url">dinner.html</span>
+    </div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-platform">X（メイン）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-dinner-1">「今日の晩ご飯どうしよう」🍳😩
+
+毎日悩むのもう終わりにしない？
+
+和食🍱・洋食🍝・中華🥟・韓国🌶️・エスニック🌴
+600品のメニューからランダム提案✨
+
+クックパッド・クラシルへ直行できます📱
+
+👉 mutaccoworks.github.io/dinner.html
+
+#晩御飯 #献立 #料理 #時短 #無料</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-dinner-1',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-dinner-1',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-dinner-1"></span>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-platform">X（バリエーション）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-dinner-2">夕飯に迷ったらこれ押すだけ🍴✨
+
+・ジャンル（和🍱・洋🍝・中🥟・韓🌶️・エスニック🌴）
+・カテゴリ（メイン・副菜・汁物・丼・麺）
+・調理時間（15分以内〜⏱️）
+
+で絞ってランダム提案。600品あります🎲
+
+👉 mutaccoworks.github.io/dinner.html
+
+#献立 #夕食 #料理 #晩ご飯</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-dinner-2',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-dinner-2',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-dinner-2"></span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot-hint">📸 スクショ推奨：提案結果5品が並んだ画面</div>
+  </div>
+
+  <!-- ルーレット -->
+  <div class="tool-card">
+    <div class="tool-head">
+      <span class="tool-icon">🎡</span>
+      <span class="tool-name">決め事ツール</span>
+      <span class="tool-url">roulette.html</span>
+    </div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-platform">X（メイン）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-roulette-1">じゃんけんに飽きたら使って🎡✨
+
+✅ ルーレット（くるくる回るやつ🌀）
+✅ あみだくじ（自分で場所選べる🎋）
+✅ チーム分け（シャッフルして分ける👥）
+
+全部無料・登録不要です🙌
+
+👉 mutaccoworks.github.io/roulette.html
+
+#ルーレット #あみだくじ #チーム分け #幹事</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-roulette-1',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-roulette-1',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-roulette-1"></span>
+        </div>
+      </div>
+      <div class="post-item">
+        <div class="post-platform">X（バリエーション）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-roulette-2">飲み会の幹事決め、もうこれでいい🎉
+
+あみだくじが自分で場所を選べて🎋
+結果は一気に出る仕様になってます✨
+
+ルーレット🌀・あみだ🎋・チーム分け👥が
+1ページに全部入ってる無料ツール🙌
+
+👉 mutaccoworks.github.io/roulette.html
+
+#飲み会 #幹事 #ルーレット #あみだくじ</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-roulette-2',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-roulette-2',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-roulette-2"></span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot-hint">📸 スクショ推奨：ルーレット回転中 or あみだくじ結果画面</div>
+  </div>
+
+  <!-- 西暦和暦 -->
+  <div class="tool-card">
+    <div class="tool-head">
+      <span class="tool-icon">📅</span>
+      <span class="tool-name">西暦和暦変換</span>
+      <span class="tool-url">wareki.html</span>
+    </div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-platform">X（メイン）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-wareki-1">「令和って何年？」
+「昭和〇〇年って西暦何年？」
+
+毎回検索してない？📅😅
+
+西暦↔和暦を一瞬で変換⚡
+令和・平成・昭和・大正対応🗾
+干支🐉・早見表つきです📊
+
+👉 mutaccoworks.github.io/wareki.html
+
+#令和 #和暦 #西暦 #変換 #無料</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-wareki-1',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-wareki-1',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-wareki-1"></span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot-hint">📸 スクショ推奨：早見表が表示された画面</div>
+  </div>
+
+  <!-- 学歴計算 -->
+  <div class="tool-card">
+    <div class="tool-head">
+      <span class="tool-icon">🎓</span>
+      <span class="tool-name">学歴年度計算</span>
+      <span class="tool-url">gakureki.html</span>
+    </div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-platform">X（メイン）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-gakureki-1">履歴書の入学・卒業年度
+毎回計算してない？🎓😅
+
+生年月日を入れるだけで
+小学校〜大学院まで全部出ます✨
+
+4月2日以降生まれも自動で調整🗓️
+専門学校・大学院にも対応📚
+
+👉 mutaccoworks.github.io/gakureki.html
+
+#履歴書 #就活 #転職 #学歴 #無料</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-gakureki-1',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-gakureki-1',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-gakureki-1"></span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot-hint">📸 スクショ推奨：学歴一覧が表示された画面</div>
+  </div>
+
+  <!-- スタンプメーカー -->
+  <div class="tool-card">
+    <div class="tool-head">
+      <span class="tool-icon">💬</span>
+      <span class="tool-name">スタンプメーカー</span>
+      <span class="tool-url">stamp.html</span>
+    </div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-platform">X（メイン）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-stamp-1">Slack・Teams・Discordの
+カスタム絵文字、自分で作れるの知ってた？💬✨
+
+文字入れてフォント🖋️・色🎨・アニメーション🌀選ぶだけ
+ダウンロードしてそのまま使えます📥
+
+25種類以上のアニメーション対応🎉
+
+👉 mutaccoworks.github.io/stamp.html
+
+#Slack #Teams #Discord #スタンプ #絵文字</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-stamp-1',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-stamp-1',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-stamp-1"></span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot-hint">📸 スクショ推奨：アニメーション中のスタンププレビュー</div>
+  </div>
+
+  <!-- パチ文字 -->
+  <div class="tool-card">
+    <div class="tool-head">
+      <span class="tool-icon">🎰</span>
+      <span class="tool-name">パチ文字メーカー</span>
+      <span class="tool-url">pachimoji.html</span>
+    </div>
+    <div class="post-list">
+      <div class="post-item">
+        <div class="post-platform">X（メイン）</div>
+        <div class="post-body" contenteditable="true" spellcheck="false" id="p-pachi-1">「5000兆円欲しい！」風の文字
+作れます⚡🎰
+
+文字を入れるだけで
+パチンコ風のド派手な画像に変換✨
+
+好きな言葉を入れてみて👇
+
+👉 mutaccoworks.github.io/pachimoji.html
+
+#パチ文字 #5000兆円欲しい #ネタ #画像生成 #無料</div>
+        <div class="post-actions">
+          <button class="copy-btn" onclick="copyPost('p-pachi-1',this)">コピー</button>
+          <button class="copy-btn" style="background:#aaa" onclick="resetPost('<button class="copy-btn" onclick="copyPost('p-pachi-1',this)">コピー</button>',this)">リセット</button>
+          <span class="char-count" id="c-pachi-1"></span>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot-hint">📸 スクショ推奨：派手なパチ文字の完成画像</div>
+  </div>
+
+</div>
+
+<div class="add-note">
+  <div class="add-note-label">📝 メモ・追加投稿文</div>
+  <textarea placeholder="ここに自由にメモや投稿文を書けます"></textarea>
+</div>
+
+<script>
+function copyPost(id, btn){
+  var text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    btn.textContent = 'コピーしました！';
+    btn.classList.add('done');
+    setTimeout(function(){
+      btn.textContent = 'コピー';
+      btn.classList.remove('done');
+    }, 2000);
+  });
+}
+
+// localStorage保存・復元
+function savePost(id){
+  localStorage.setItem('sns_' + id, document.getElementById(id).innerText);
+}
+function loadPosts(){
+  document.querySelectorAll('.post-body').forEach(function(el){
+    var saved = localStorage.getItem('sns_' + el.id);
+    if(saved) el.innerText = saved;
+  });
+}
+
+// 文字数カウント（リアルタイム）
+function updateCount(el){
+  var countEl = document.getElementById('c-' + el.id.replace('p-',''));
+  if(countEl){
+    var len = el.textContent.trim().length;
+    countEl.textContent = len + '文字';
+    countEl.style.color = len > 280 ? '#ef4444' : 'var(--text2)';
+  }
+}
+
+// 初期化
+loadPosts();
+document.querySelectorAll('.post-body').forEach(function(el){
+  updateCount(el);
+  el.addEventListener('input', function(){
+    updateCount(this);
+    savePost(this.id);
+  });
+});
+
+// リセットボタン用
+window.resetPost = function(id, btn){
+  if(!confirm('元の文章に戻しますか？')) return;
+  localStorage.removeItem('sns_' + id);
+  location.reload();
+};
+</script>
+</body>
+</html>
